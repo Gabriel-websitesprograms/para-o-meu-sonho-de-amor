@@ -1,0 +1,392 @@
+body:has(script[src*="progresso-site.js"]):not(.progression-ready) {
+    visibility: hidden;
+}
+
+body.progression-ready {
+    visibility: visible;
+}
+
+body.progression-content-page .menu-romantico {
+    display: none !important;
+}
+
+body.progression-content-page:has(.music-controls) {
+    padding-bottom: max(6rem, calc(5rem + env(safe-area-inset-bottom)));
+}
+
+.progression-panel {
+    position: relative;
+    z-index: 10001;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "details actions"
+        "meter meter"
+        "message message";
+    align-items: center;
+    gap: 0.45rem 1rem;
+    width: min(100% - 2rem, 58rem);
+    margin: 0.85rem auto;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgb(181 150 91 / 48%);
+    border-radius: 14px;
+    background: rgb(255 253 249 / 88%);
+    box-shadow: 0 4px 12px rgb(61 41 50 / 7%);
+    color: var(--romance-ink, #3d2932);
+}
+
+.progression-panel[hidden],
+.progression-button[hidden] {
+    display: none;
+}
+
+.progression-details,
+.progression-message {
+    margin: 0;
+}
+
+.progression-details {
+    grid-area: details;
+    min-width: 0;
+}
+
+.progression-details > * {
+    margin: 0;
+}
+
+.progression-title {
+    color: var(--romance-wine, #78374f);
+    font: 700 0.85rem/1.25 "Segoe UI", Arial, sans-serif;
+}
+
+.progression-step {
+    padding-top: 0.12rem;
+    color: var(--romance-muted, #705b61);
+    font-size: 0.72rem;
+    line-height: 1.4;
+}
+
+.progression-meter {
+    grid-area: meter;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.65rem;
+    min-width: 0;
+}
+
+.progression-meter-bar {
+    display: block;
+    width: 100%;
+    height: 0.38rem;
+    margin: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    background: #eee3da;
+    accent-color: var(--romance-wine, #78374f);
+}
+
+.progression-meter-bar::-webkit-progress-bar {
+    border-radius: 999px;
+    background: #eee3da;
+}
+
+.progression-meter-bar::-webkit-progress-value {
+    border-radius: 999px;
+    background: linear-gradient(90deg, #d9b879, var(--romance-wine, #78374f));
+    transition: width 320ms ease;
+}
+
+.progression-meter-bar::-moz-progress-bar {
+    border-radius: 999px;
+    background: linear-gradient(90deg, #d9b879, var(--romance-wine, #78374f));
+    transition: width 320ms ease;
+}
+
+.progression-meter-count {
+    color: var(--romance-muted, #705b61);
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.progression-chapter-transition {
+    border-left: 3px solid var(--romance-gold, #b5965b);
+    background: linear-gradient(100deg, rgb(244 228 230 / 76%), rgb(255 253 249 / 94%) 58%);
+}
+
+.progression-chapter-transition .progression-step::before {
+    margin-right: 0.35rem;
+    color: var(--romance-gold, #b5965b);
+    content: "✧";
+}
+
+.progression-start {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "details actions"
+        "meter meter"
+        "message message";
+    justify-content: center;
+    text-align: center;
+}
+
+.progression-start .progression-details {
+    text-align: center;
+}
+
+.progression-start .progression-meter {
+    width: min(100%, 30rem);
+    justify-self: center;
+}
+
+.progression-unlock-link {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+        "details"
+        "message"
+        "actions";
+    justify-items: center;
+}
+
+.progression-unlock-link .progression-details,
+.progression-unlock-link .progression-message {
+    text-align: center;
+}
+
+.progression-unlock-link .progression-message {
+    max-width: 42rem;
+    justify-self: center;
+}
+
+.progression-unlock-link > .progression-button {
+    grid-area: actions;
+}
+
+.progression-start > .progression-button {
+    grid-area: actions;
+}
+
+.progression-actions {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.55rem;
+    min-width: 0;
+}
+
+.progression-message {
+    grid-area: message;
+    color: var(--romance-wine, #78374f);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.progression-message:empty {
+    display: none;
+}
+
+.progression-lock-screen {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 1.5rem;
+}
+
+.progression-lock-card {
+    width: min(100%, 30rem);
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+    border: 1px solid rgb(181 150 91 / 48%);
+    border-radius: 22px;
+    background: rgb(255 253 249 / 94%);
+    box-shadow: 0 12px 30px rgb(61 41 50 / 12%);
+    color: var(--romance-ink, #3d2932);
+    text-align: center;
+}
+
+.progression-lock-card h1 {
+    margin: 0 0 0.75rem;
+    color: var(--romance-wine, #78374f);
+    font: 700 clamp(1.4rem, 5vw, 2rem)/1.2 Georgia, "Times New Roman", serif;
+}
+
+.progression-lock-card p {
+    margin: 0 0 1.25rem;
+    line-height: 1.6;
+}
+
+.menu-romantico .chapter-locked-label {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 0.05rem;
+    min-width: 0;
+    min-height: 2.5rem;
+    padding: 0.35rem 0.2rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--romance-muted, #705b61);
+    font: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.menu-romantico .chapter-locked-label .chapter-locked-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 1.65rem;
+    height: 1.65rem;
+    place-items: center;
+    border: 1px solid rgb(181 150 91 / 65%);
+    border-radius: 50%;
+    background: #fff1f5;
+    box-shadow: 0 3px 9px rgb(61 41 50 / 20%);
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.75);
+    transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.menu-romantico .chapter-locked:hover .chapter-locked-label .chapter-locked-icon,
+.menu-romantico .chapter-locked:focus-within .chapter-locked-label .chapter-locked-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@media (hover: none) {
+    .menu-romantico .chapter-locked-label .chapter-locked-icon {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.menu-romantico .chapter-locked-label .menu-roteiro-numero {
+    opacity: 0.68;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0;
+    font-size: 0.52rem;
+}
+
+.menu-romantico .chapter-locked-icon {
+    font-size: 0.8rem;
+    line-height: 1;
+}
+
+.chapter-lock-message {
+    position: fixed;
+    z-index: 10003;
+    right: 1rem;
+    bottom: max(1.25rem, env(safe-area-inset-bottom));
+    left: 1rem;
+    width: fit-content;
+    max-width: min(24rem, calc(100vw - 2rem));
+    margin: 0 auto;
+    padding: 0.8rem 1.15rem;
+    border: 1px solid rgb(181 150 91 / 62%);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #fffdfa, #f8edcf);
+    box-shadow: 0 8px 24px rgb(61 41 50 / 18%);
+    color: #5e444b;
+    font: 650 0.9rem/1.45 "Segoe UI", Arial, sans-serif;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.5rem);
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.chapter-lock-message.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.progression-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.15rem;
+    max-width: min(100%, 24rem);
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--romance-gold, #b5965b);
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--romance-wine, #78374f), #5e293e);
+    box-shadow: 0 4px 12px rgb(120 55 79 / 16%);
+    color: #fffaf5;
+    font: 700 0.72rem/1.25 "Segoe UI", Arial, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    cursor: pointer;
+}
+
+.progression-back-button {
+    border-color: rgb(181 150 91 / 58%);
+    background: #fffdfa;
+    box-shadow: none;
+    color: var(--romance-wine, #78374f);
+}
+
+.progression-button:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #8b435d, var(--romance-wine, #78374f));
+    box-shadow: 0 6px 15px rgb(120 55 79 / 22%);
+}
+
+.progression-back-button:hover {
+    background: #f5eee5;
+    box-shadow: 0 4px 10px rgb(61 41 50 / 9%);
+}
+
+.progression-button:focus-visible {
+    outline: 3px solid var(--romance-gold, #b5965b);
+    outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+    .progression-panel {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "details"
+            "meter"
+            "message"
+            "actions";
+    }
+
+    .progression-unlock-link {
+        grid-template-areas:
+            "details"
+            "message"
+            "actions";
+    }
+
+    .progression-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .progression-button {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .progression-button,
+    .chapter-lock-message,
+    .progression-meter-bar::-webkit-progress-value,
+    .progression-meter-bar::-moz-progress-bar {
+        transition: none;
+    }
+}

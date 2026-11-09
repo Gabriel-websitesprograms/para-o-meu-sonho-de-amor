@@ -1,0 +1,936 @@
+:root {
+    color-scheme: dark;
+    --night: #080609;
+    --night-soft: #100b0e;
+    --panel: #150c10;
+    --panel-raised: #211116;
+    --blood: #761526;
+    --blood-bright: #a51f35;
+    --gold: #c9a85b;
+    --gold-light: #e7cc83;
+    --ivory: #f3eee8;
+    --muted: #c4b9b2;
+    --line: rgb(201 168 91 / 38%);
+    --shadow: 0 20px 56px rgb(0 0 0 / 48%);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 320px;
+    min-height: 100%;
+    background: var(--night);
+}
+
+body.corpo {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--ivory);
+    background:
+        radial-gradient(ellipse at 50% -15%, rgb(118 21 38 / 38%), transparent 48%),
+        radial-gradient(ellipse at 100% 75%, rgb(80 12 27 / 18%), transparent 38%),
+        linear-gradient(155deg, #0a080b, #10090d 54%, #070608);
+    background-attachment: fixed;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+::selection {
+    background: var(--blood-bright);
+    color: var(--ivory);
+}
+
+a {
+    color: var(--gold-light);
+    text-underline-offset: 3px;
+}
+
+a:hover,
+a:focus-visible {
+    color: var(--ivory);
+}
+
+h1,
+h2,
+h3,
+.menu-button {
+    font-family: 'MedievalSharp', Georgia, serif;
+}
+
+.barra-navegacao {
+    position: relative;
+    z-index: 5;
+    width: min(1160px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 22px 0 8px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.menu {
+    position: relative;
+    width: auto;
+    max-width: 700px;
+    margin: 0;
+}
+
+.menu-button,
+.home-button {
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: linear-gradient(145deg, #1d1116, #0d090c);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 35%);
+    transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.menu-button {
+    min-height: 48px;
+    width: fit-content;
+    margin-left: auto;
+    padding: 12px 22px;
+    color: var(--gold-light);
+    cursor: pointer;
+    list-style: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.menu-button::-webkit-details-marker {
+    display: none;
+}
+
+.menu-button::marker {
+    content: "";
+}
+
+.menu-button:hover,
+.menu-button:focus-visible,
+.menu[open] > .menu-button,
+.home-button:hover,
+.home-button:focus-visible {
+    border-color: var(--gold-light);
+    background: linear-gradient(145deg, #5a1322, #1a0a0f);
+    box-shadow: 0 0 22px rgb(118 21 38 / 38%), 0 0 10px rgb(201 168 91 / 18%);
+    color: var(--ivory);
+    transform: translateY(-2px);
+}
+
+.home-button {
+    width: 112px;
+    height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.home-button img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.navegacao {
+    position: absolute;
+    top: calc(100% + 9px);
+    right: 0;
+    min-width: 195px;
+    margin: 0;
+    padding: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: linear-gradient(155deg, #1c0e13, #0b080a);
+    box-shadow: 0 18px 40px rgb(0 0 0 / 58%);
+}
+
+.menu[open] .navegacao {
+    animation: menu-enter 200ms ease-out both;
+}
+
+.navegacao a {
+    display: block;
+    padding: 11px 13px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--gold-light);
+    text-decoration: none;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.navegacao a:hover,
+.navegacao a:focus-visible,
+.navegacao a[aria-current="page"] {
+    border-color: rgb(201 168 91 / 35%);
+    background: linear-gradient(100deg, rgb(118 21 38 / 52%), rgb(37 10 18 / 74%));
+    color: var(--ivory);
+    transform: translateX(2px);
+}
+
+@keyframes menu-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title,
+.sinopse,
+.personagens,
+.curiososidades,
+.temporadas {
+    border: 1px solid var(--line);
+    background: linear-gradient(145deg, rgb(28 15 20 / 96%), rgb(9 8 10 / 97%));
+    box-shadow: var(--shadow), inset 0 1px rgb(255 255 255 / 3%);
+    color: var(--ivory);
+}
+
+.title {
+    position: relative;
+    width: min(860px, calc(100% - 40px));
+    max-width: none;
+    margin: clamp(30px, 7vh, 76px) auto 22px;
+    padding: clamp(32px, 6vw, 66px) 24px;
+    overflow: hidden;
+    border-radius: 25px;
+    background:
+        radial-gradient(ellipse at 50% 120%, rgb(118 21 38 / 44%), transparent 58%),
+        linear-gradient(145deg, #1c0e13, #09070a 72%);
+    text-align: center;
+}
+
+.title::before,
+.title::after {
+    position: absolute;
+    right: 12%;
+    left: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    content: "";
+}
+
+.title::before {
+    top: 14px;
+}
+
+.title::after {
+    bottom: 14px;
+}
+
+.title h1 {
+    margin: 0;
+    color: var(--ivory);
+    font-size: clamp(2rem, 6vw, 4.25rem);
+    letter-spacing: 0.045em;
+    line-height: 1.12;
+    text-shadow: 0 3px 24px rgb(118 21 38 / 50%);
+}
+
+.sinopse {
+    width: min(760px, calc(100% - 40px));
+    max-width: none;
+    margin: 0 auto 64px;
+    padding: clamp(24px, 5vw, 42px);
+    border-radius: 21px;
+    font-size: 1.08rem;
+    line-height: 1.85;
+    text-align: left;
+}
+
+.sinopse h2 {
+    margin: 0 0 18px;
+    color: var(--gold-light);
+    font-size: 1.35rem;
+    letter-spacing: 0.14em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.sinopse p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.sinopse p + p {
+    margin-top: 16px;
+}
+
+.personagens,
+.curiososidades,
+.temporadas {
+    width: min(1160px, calc(100% - 40px));
+    margin: 24px auto 64px;
+    padding: clamp(20px, 4vw, 42px);
+    border-radius: 25px;
+}
+
+.personagens {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    gap: 22px;
+}
+
+.personagens > h1,
+.curiososidades > h1,
+.temporadas > h1 {
+    margin: 0 0 8px;
+    color: var(--ivory);
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-shadow: 0 3px 22px rgb(118 21 38 / 42%);
+}
+
+.personagens > h1 {
+    grid-column: 1 / -1;
+}
+
+.personagens > h1::after,
+.curiososidades > h1::after,
+.temporadas > h1::after {
+    width: 88px;
+    height: 2px;
+    margin: 14px auto 0;
+    display: block;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    content: "";
+}
+
+.personagens section {
+    min-width: 0;
+    padding: 12px;
+    overflow: hidden;
+    border: 1px solid rgb(201 168 91 / 34%);
+    border-radius: 17px;
+    background: linear-gradient(155deg, #260d14, #0d090b 78%);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 30%);
+    text-align: center;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.personagens section:hover {
+    border-color: var(--gold-light);
+    background: linear-gradient(155deg, #42101c, #10090c 78%);
+    box-shadow: 0 18px 34px rgb(0 0 0 / 45%), 0 0 26px rgb(118 21 38 / 32%);
+    transform: translateY(-3px);
+}
+
+.personagens section[role="button"] {
+    cursor: pointer;
+}
+
+.personagens section[role="button"]:focus-visible {
+    outline: 3px solid var(--gold-light);
+    outline-offset: 3px;
+}
+
+.foto-personagem {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 11px;
+    background: linear-gradient(145deg, #741323, #1a080e 76%);
+    color: var(--gold-light);
+}
+
+.foto-personagem img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+    transition: transform 350ms ease, filter 350ms ease;
+}
+
+.personagens section:hover .foto-personagem img {
+    filter: saturate(1.08);
+    transform: scale(1.045);
+}
+
+.foto-placeholder {
+    position: absolute;
+    padding: 12px;
+    color: var(--gold-light);
+    text-shadow: 0 2px 12px #000;
+}
+
+.personagens section h2 {
+    margin: 0;
+    padding: 14px 8px 8px;
+    color: var(--ivory);
+    font-size: 1.05rem;
+    letter-spacing: 0.025em;
+}
+
+.personagem-dialog,
+.episodios-dialog {
+    max-height: min(88vh, 900px);
+    overflow-y: auto;
+    border: 1px solid rgb(201 168 91 / 65%);
+    border-radius: 20px;
+    background:
+        radial-gradient(ellipse at 50% 0, rgb(118 21 38 / 30%), transparent 48%),
+        linear-gradient(145deg, #1a0c10, #09070a 78%);
+    box-shadow: 0 28px 90px rgb(0 0 0 / 75%), 0 0 42px rgb(118 21 38 / 14%);
+    color: var(--ivory);
+    font-family: 'MedievalSharp', Georgia, serif;
+}
+
+.personagem-dialog {
+    width: min(560px, calc(100% - 32px));
+    max-height: min(85vh, 760px);
+    padding: 24px;
+}
+
+.episodios-dialog {
+    width: min(780px, calc(100% - 32px));
+    padding: 14px 18px 12px;
+    border-color: #343434;
+    border-radius: 17px;
+    background: #050505;
+    color: #f1f1f1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.personagem-dialog[open],
+.episodios-dialog[open] {
+    animation: dialog-enter 220ms ease-out both;
+}
+
+.personagem-dialog::backdrop,
+.episodios-dialog::backdrop {
+    background: rgb(3 2 4 / 82%);
+    backdrop-filter: blur(7px);
+}
+
+@keyframes dialog-enter {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dialog-acoes {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dialog-fechar {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: linear-gradient(145deg, #57101e, #210a10);
+    color: var(--gold-light);
+    cursor: pointer;
+    font-size: 27px;
+    line-height: 1;
+    transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.dialog-fechar:hover,
+.dialog-fechar:focus-visible {
+    background: var(--blood-bright);
+    box-shadow: 0 0 18px rgb(118 21 38 / 48%);
+    color: var(--ivory);
+}
+
+.personagem-dialog h2 {
+    margin: 0 0 18px;
+    color: var(--gold-light);
+    text-align: center;
+}
+
+.dialog-imagem-container {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dialog-imagem {
+    max-width: 100%;
+    max-height: 48vh;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    box-shadow: 0 12px 34px rgb(0 0 0 / 45%);
+    object-fit: contain;
+}
+
+.dialog-imagem-status {
+    color: var(--gold-light);
+    text-align: center;
+}
+
+.dialog-descricao,
+.dialog-contexto {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.dialog-contexto {
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+}
+
+.dialog-fonte {
+    color: var(--gold-light);
+}
+
+.curiososidades,
+.temporadas {
+    font-family: 'MedievalSharp', Georgia, serif;
+    font-size: large;
+}
+
+.curiososidades-introducao,
+.curiosidades-nota,
+.temporadas-introducao,
+.temporadas-nota {
+    color: var(--gold-light);
+    text-align: center;
+}
+
+.curiososidades-introducao,
+.temporadas-introducao {
+    margin: 0 0 24px;
+}
+
+.lista-curiosidades,
+.lista-temporadas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 18px;
+}
+
+.lista-temporadas {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.lista-familias,
+.glossario-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 18px;
+}
+
+.familia-card,
+.glossario-lista > div {
+    padding: 20px;
+    border: 1px solid rgb(201 168 91 / 36%);
+    border-radius: 17px;
+    background: linear-gradient(150deg, #230a11, #0d090b 80%);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 26%);
+}
+
+.familia-card h2,
+.glossario-lista dt,
+.linha-tempo h2 {
+    margin: 0 0 10px;
+    color: var(--gold-light);
+    font-family: 'MedievalSharp', Georgia, serif;
+}
+
+.familia-card p,
+.glossario-lista dd,
+.linha-tempo p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.glossario-lista > div {
+    transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.glossario-lista > div:hover {
+    border-color: var(--gold-light);
+    transform: translateY(-3px);
+}
+
+.glossario-lista dt {
+    font-size: 1.1rem;
+}
+
+.glossario-lista dd {
+    margin-left: 0;
+}
+
+.linha-tempo {
+    position: relative;
+    display: grid;
+    gap: 18px;
+    margin: 30px 0 0;
+    padding: 0 0 0 28px;
+    list-style: none;
+}
+
+.linha-tempo::before {
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 8px;
+    width: 2px;
+    background: linear-gradient(var(--gold), var(--blood-bright));
+    content: "";
+}
+
+.linha-tempo li {
+    position: relative;
+    padding: 20px;
+    border: 1px solid rgb(201 168 91 / 36%);
+    border-radius: 15px;
+    background: linear-gradient(150deg, #230a11, #0d090b 80%);
+}
+
+.linha-tempo li::before {
+    position: absolute;
+    top: 25px;
+    left: -26px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--gold-light);
+    border-radius: 50%;
+    background: var(--blood);
+    content: "";
+}
+
+.linha-tempo-momento {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--gold-light);
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.faixa-musical a {
+    display: inline-block;
+    margin-top: 14px;
+    color: var(--gold-light);
+    font-weight: 700;
+}
+
+.faixa-musical a:hover,
+.faixa-musical a:focus-visible {
+    color: var(--ivory);
+}
+
+.lista-curiosidades article,
+.temporada {
+    border: 1px solid rgb(201 168 91 / 36%);
+    border-radius: 17px;
+    background: linear-gradient(150deg, #230a11, #0d090b 80%);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 26%);
+}
+
+.lista-curiosidades article {
+    position: relative;
+    z-index: 0;
+    padding: 20px;
+    overflow: hidden;
+    color: var(--muted);
+    line-height: 1.65;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.lista-curiosidades article:hover {
+    z-index: 1;
+    border-color: var(--gold-light);
+    box-shadow: 0 18px 36px rgb(0 0 0 / 42%), 0 0 24px rgb(118 21 38 / 32%);
+    transform: scale(1.04);
+}
+
+.lista-curiosidades article::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    background: linear-gradient(var(--gold), var(--blood-bright));
+    content: "";
+}
+
+.lista-curiosidades h2,
+.temporada h2,
+.temporada .temporada-episodios {
+    color: var(--gold-light);
+}
+
+.lista-curiosidades h2 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+}
+
+.lista-curiosidades p {
+    margin: 0;
+}
+
+.curiosidades-nota,
+.temporadas-nota {
+    margin: 22px 0 0;
+    font-size: 0.85em;
+}
+
+.temporada {
+    display: grid;
+    grid-template-columns: minmax(220px, 36%) minmax(0, 1fr);
+    align-items: stretch;
+    width: 100%;
+    min-height: 360px;
+    padding: 0;
+    overflow: hidden;
+    color: var(--muted);
+    cursor: pointer;
+    font: inherit;
+    line-height: 1.65;
+    text-align: left;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.temporada-capa {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    max-height: 440px;
+    padding: 10px;
+    background: #080709;
+    object-fit: contain;
+}
+
+.temporada-conteudo {
+    align-self: center;
+    padding: 18px;
+    font-size: 0.9em;
+}
+
+.temporada:hover,
+.temporada:focus-visible {
+    outline: 3px solid var(--gold-light);
+    outline-offset: 3px;
+    border-color: var(--gold-light);
+    background: linear-gradient(145deg, #57101e, #12090d 78%);
+    box-shadow: 0 18px 40px rgb(0 0 0 / 42%), 0 0 27px rgb(118 21 38 / 34%);
+    transform: translateY(-3px);
+}
+
+.temporada h2 {
+    margin: 0 0 4px;
+    font-size: 1.2em;
+}
+
+.temporada p {
+    margin: 0;
+}
+
+.temporada .temporada-episodios {
+    margin-bottom: 12px;
+    font-size: 0.85em;
+}
+
+.episodios-dialog .dialog-acoes {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+
+.episodios-dialog .dialog-fechar {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #555;
+    background: #171717;
+    color: #f1f1f1;
+    font-size: 21px;
+}
+
+.episodios-dialog > h2 {
+    margin: 0 42px 8px 0;
+    color: #f1f1f1;
+    font: 700 18px/1.35 Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+
+.lista-episodios {
+    display: grid;
+    gap: 0;
+}
+
+.episodio-card {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.episodio-card + .episodio-card {
+    border-top: 1px solid #242424;
+}
+
+.episodio-capa {
+    min-height: 64px;
+    aspect-ratio: 16 / 9;
+    align-self: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #373737;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #282024, #0c0c0c);
+    color: #ddd;
+    font-size: 12px;
+    text-align: center;
+}
+
+.episodio-capa img {
+    width: 100%;
+    height: 100%;
+    border-radius: 9px;
+    object-fit: cover;
+}
+
+.episodio-conteudo {
+    align-self: start;
+}
+
+.episodio-conteudo h3 {
+    margin: 3px 0 7px;
+    color: #f1f1f1;
+    font: 700 15px/1.4 Arial, Helvetica, sans-serif;
+}
+
+.episodio-conteudo p {
+    margin: 0;
+    color: #dedede;
+    font: 400 14px/1.5 Arial, Helvetica, sans-serif;
+}
+
+.episodios-aviso {
+    margin: 0;
+    color: #bdbdbd;
+    font: 400 11px/1.45 Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: page-exit 180ms ease-in both;
+}
+
+::view-transition-new(root) {
+    animation: page-enter 320ms ease-out both;
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes page-exit {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .barra-navegacao {
+        width: calc(100% - 28px);
+        padding-top: 14px;
+    }
+
+    .home-button {
+        width: 92px;
+        height: 50px;
+    }
+
+    .menu-button {
+        min-height: 46px;
+    }
+
+    .title,
+    .sinopse,
+    .personagens,
+    .curiososidades,
+    .temporadas {
+        width: calc(100% - 28px);
+    }
+
+    .episodios-dialog {
+        padding: 12px;
+    }
+
+    .temporada {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .temporada-capa {
+        height: 340px;
+        min-height: 0;
+        max-height: 380px;
+        padding: 12px;
+    }
+
+    .temporada-conteudo {
+        padding: 18px;
+    }
+
+    .episodio-card {
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .episodio-capa {
+        min-height: 56px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+    }
+}

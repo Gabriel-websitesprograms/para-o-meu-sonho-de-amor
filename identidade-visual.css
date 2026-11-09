@@ -1,0 +1,523 @@
+:root {
+    --romance-paper: #fbf8f2;
+    --romance-paper-deep: #f3ece2;
+    --romance-ink: #3d2932;
+    --romance-muted: #705b61;
+    --romance-wine: #78374f;
+    --romance-rose: #c98798;
+    --romance-blush: #f4e4e6;
+    --romance-gold: #b5965b;
+    --romance-line: #e6d9c8;
+    --romance-shadow: 0 16px 38px rgb(61 41 50 / 10%);
+    --romance-soft-shadow: 0 7px 20px rgb(61 41 50 / 8%);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 0;
+    overflow-x: clip;
+}
+
+body {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
+    overflow-wrap: anywhere;
+    isolation: isolate;
+}
+
+.edge-blossom {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    width: clamp(4.5rem, 12vw, 9rem);
+    height: 100vh;
+    background-repeat: repeat-y;
+    background-position: center top;
+    background-size: 100% auto;
+    opacity: 0.58;
+    pointer-events: none;
+    user-select: none;
+}
+
+.edge-blossom-left {
+    left: 0;
+}
+
+.edge-blossom-right {
+    right: 0;
+    transform: scaleX(-1);
+}
+
+@media (max-width: 600px) {
+    .edge-blossom {
+        width: clamp(4.1rem, 19vw, 5.2rem);
+        opacity: 0.5;
+    }
+}
+
+body > .love-doodle {
+    position: fixed;
+}
+
+main,
+section,
+article,
+figure,
+header,
+footer,
+nav,
+aside,
+form,
+ul,
+ol,
+li {
+    min-width: 0;
+}
+
+img,
+picture,
+video,
+iframe,
+canvas,
+svg,
+object,
+embed {
+    max-width: 100%;
+}
+
+audio {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    max-width: 100%;
+}
+
+textarea {
+    overflow-wrap: anywhere;
+}
+
+pre,
+table {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.page-navigation {
+    flex-wrap: wrap;
+}
+
+.page-navigation a {
+    min-width: min(100%, 11rem);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) {
+    background-color: var(--romance-paper);
+    background-image:
+        radial-gradient(ellipse at 8% 0, rgb(201 135 152 / 11%), transparent 34rem),
+        radial-gradient(ellipse at 100% 55%, rgb(181 150 91 / 8%), transparent 32rem),
+        linear-gradient(160deg, #fffdf9, var(--romance-paper) 58%, #f7f0e9);
+    background-attachment: fixed;
+    color: var(--romance-ink);
+    font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) main:not(.menu-showcase) {
+    width: min(100%, 68rem);
+    margin-inline: auto;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]):not(.carta-unica):not(.video-page) h1,
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]):not(.carta-unica):not(.video-page) h2 {
+    border: 1px solid var(--romance-line);
+    background:
+        radial-gradient(ellipse at 100% 0, rgb(181 150 91 / 10%), transparent 18rem),
+        linear-gradient(145deg, #fffdf9, #f8eff0);
+    box-shadow: var(--romance-soft-shadow);
+    color: var(--romance-wine);
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: -0.025em;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]):not(.carta-unica):not(.video-page) h1 {
+    border-color: rgb(181 150 91 / 48%);
+    border-radius: 22px;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.12;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]):not(.video-page) h2 {
+    border-radius: 16px;
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .welcome-screen h1,
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .history-section h1 {
+    padding: 0.25rem 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) h3 {
+    color: var(--romance-wine);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .welcome-screen,
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .history-section,
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]):not(.carta-unica):not(.historia-conectada) .p1,
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]):not(.carta-unica) article {
+    border: 1px solid var(--romance-line);
+    background: rgb(255 253 249 / 88%);
+    box-shadow: var(--romance-soft-shadow);
+    color: var(--romance-ink);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .history-section {
+    border-top: 2px solid var(--romance-gold);
+    border-radius: 22px;
+    background: rgb(255 253 249 / 76%);
+}
+
+
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]):not(.carta-unica):not(.historia-conectada) .p1 {
+    border-radius: 14px;
+    line-height: 1.75;
+}
+
+body.historia-conectada .history-section .p1 {
+    display: block;
+    max-width: 62ch;
+    margin: 0.55rem auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    line-height: 1.9;
+    text-align: center;
+}
+
+body.historia-conectada .history-section {
+    text-align: center;
+}
+
+body.historia-conectada .history-section h1 {
+    text-align: center;
+}
+
+body.carta-unica main article {
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid var(--romance-line);
+    border-radius: 20px;
+    background: rgb(255 253 249 / 90%);
+    box-shadow: var(--romance-shadow);
+}
+
+body.carta-unica main article h1 {
+    margin: 0 0 1rem;
+    padding: 0 0 0.8rem;
+    border: 0;
+    border-bottom: 1px solid rgb(181 150 91 / 35%);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: left;
+}
+
+body.carta-unica main article .p1 {
+    max-width: none;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--romance-ink);
+    line-height: 1.8;
+}
+
+body.carta-unica main article > p:not(.carta-data) {
+    display: inline;
+    margin: 0;
+}
+
+body.carta-unica main article > .carta-data {
+    display: block;
+    margin: 0 0 1rem;
+}
+
+body.carta-unica main article .p1 time {
+    color: var(--romance-muted);
+    font-size: 0.92rem;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) a:not(.menu-romantico a):not(.historia-data-link) {
+    text-decoration-color: rgb(181 150 91 / 70%);
+    text-underline-offset: 0.2em;
+}
+
+main article p a,
+.p1 a {
+    display: inline;
+    margin: 0;
+    padding: 0 0.08em 0.04em;
+    border: 0;
+    border-bottom: 1px solid rgb(181 150 91 / 62%);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--romance-wine, #78374f);
+    font-weight: 600;
+    line-height: inherit;
+    text-decoration: none;
+    transform: none;
+    filter: none;
+    transition: color 180ms ease, border-color 180ms ease;
+}
+
+main article p a:hover,
+main article p a:focus-visible,
+.p1 a:hover,
+.p1 a:focus-visible {
+    position: static;
+    z-index: auto;
+    border-bottom-color: var(--romance-wine, #78374f);
+    background: transparent;
+    box-shadow: none;
+    color: var(--romance-wine, #78374f);
+    text-decoration: none;
+    transform: none;
+    filter: none;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .continue-link,
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .page-navigation a {
+    border: 1px solid var(--romance-gold);
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--romance-wine), #5e293e);
+    box-shadow: 0 8px 18px rgb(120 55 79 / 18%);
+    color: #fffaf5;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .continue-link:hover,
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .page-navigation a:hover {
+    background: linear-gradient(135deg, #8b435d, var(--romance-wine));
+    box-shadow: 0 11px 22px rgb(120 55 79 / 24%);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) button:not(.menu-romantico button):not(.song-reveal-button):not(.song-play-button) {
+    border-color: rgb(181 150 91 / 55%);
+    border-radius: 999px;
+    background-color: #f6e8e7;
+    color: var(--romance-wine);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) button:not(.menu-romantico button):not(.song-reveal-button):not(.song-play-button):hover {
+    background-color: var(--romance-blush);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) :focus-visible {
+    outline-color: var(--romance-gold);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) ::selection {
+    background: var(--romance-wine);
+    color: #fffaf5;
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) hr {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(90deg, transparent, var(--romance-gold), transparent);
+}
+
+body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) .music-controls {
+    border-color: rgb(181 150 91 / 45%);
+    background: rgb(251 248 242 / 94%);
+    box-shadow: var(--romance-soft-shadow);
+    color: var(--romance-ink);
+}
+
+.menu-romantico {
+    width: min(calc(100% - 1rem), 72rem);
+    flex-wrap: wrap;
+    justify-content: center;
+    border-color: rgb(181 150 91 / 62%);
+    background: rgb(251 248 242 / 94%);
+    box-shadow: 0 10px 28px rgb(61 41 50 / 12%);
+    backdrop-filter: blur(16px);
+}
+
+.menu-romantico a,
+.menu-romantico .menu-trigger {
+    min-height: 2.75rem;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.86rem;
+}
+
+.menu-romantico .indicador {
+    background: linear-gradient(135deg, var(--romance-wine), #90516a);
+}
+
+.menu-romantico a,
+.menu-romantico .menu-trigger {
+    color: var(--romance-ink);
+    font-weight: 650;
+}
+
+.menu-romantico .menu-roteiro-numero {
+    border-color: rgb(181 150 91 / 55%);
+    background: #fffdf9;
+    color: var(--romance-gold);
+}
+
+.menu-romantico a.menu-misterio {
+    border-color: rgb(181 150 91 / 65%);
+    background: linear-gradient(135deg, #fffdf9, #f4e4e6);
+    color: var(--romance-wine);
+    box-shadow: 0 3px 12px rgb(120 55 79 / 10%);
+}
+
+.menu-romantico .submenu {
+    border-color: var(--romance-line);
+    background: rgb(251 248 242 / 98%);
+    box-shadow: var(--romance-shadow);
+}
+
+.menu-romantico .submenu a {
+    color: var(--romance-ink);
+}
+
+.menu-romantico .submenu a:hover,
+.menu-romantico .submenu a:focus-visible {
+    background: var(--romance-blush);
+    color: var(--romance-wine);
+}
+
+@media (max-width: 600px) {
+    body:not(.corpo):not(.world-travel-body):not(.italia-body):not(.frank-ocean-body):not(.bahia-body):not(.spotify-music-body):not(.photos-page):not(.movie-page):not(.movie-gallery):not(.series-gallery):not(.series-universe):not([class*="series-universe--"]) {
+        padding: 1rem;
+        background-attachment: scroll;
+    }
+
+    .menu-romantico {
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 22px;
+    }
+
+    .menu-romantico .menu-item {
+        flex: 0 0 auto;
+        position: static;
+    }
+
+    .menu-romantico .submenu {
+        right: auto;
+        left: 50%;
+        width: min(20rem, calc(100vw - 2rem));
+        max-width: calc(100vw - 2rem);
+        transform: translateX(-50%);
+    }
+
+    .menu-romantico a,
+    .menu-romantico .menu-trigger {
+        min-height: 44px;
+        padding: 0.58rem 0.55rem;
+        font-size: 0.79rem;
+    }
+
+    .menu-romantico .indicador {
+        display: none;
+    }
+
+    .menu-romantico .menu-item.is-active > a,
+    .menu-romantico .menu-item.is-active > .menu-trigger,
+    .menu-romantico a:hover,
+    .menu-romantico a:focus-visible,
+    .menu-romantico .menu-trigger:hover,
+    .menu-romantico .menu-trigger:focus-visible {
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--romance-wine), #5e293e);
+        color: #fffaf5;
+    }
+}
+
+@media (max-width: 480px) {
+    .music-controls {
+        right: 0.5rem;
+        bottom: 0.5rem;
+        left: 0.5rem;
+        max-width: calc(100vw - 1rem);
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 1rem;
+    }
+
+    .music-status {
+        flex: 1 1 100%;
+        max-width: none;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+body main :is(h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, caption, label, legend, summary, time, dt, dd, a, button, output) {
+    text-align: center !important;
+}
+
+body main :is(h1, h2, h3, h4, h5, h6) {
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    text-wrap: balance;
+}
+
+body main :is(p, li, blockquote, figcaption, caption, .p1) {
+    color: var(--romance-ink);
+    font-family: Georgia, "Times New Roman", serif !important;
+    letter-spacing: 0.008em;
+    line-height: 1.85;
+    text-wrap: pretty;
+}
+
+body main :is(p, blockquote) {
+    max-width: min(62ch, 100%);
+    margin-inline: auto;
+}
+
+body.carta-unica main article h1 {
+    text-align: center !important;
+}
+
+body.carta-unica main article {
+    text-align: center !important;
+}
+
+body.carta-unica main article > p:not(.carta-data) {
+    display: block !important;
+    margin: 0 auto 1rem;
+}
+
+body.carta-unica main article .p1 {
+    max-width: min(62ch, 100%);
+}
+
+body.historia-conectada .history-section {
+    text-align: center !important;
+}

@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff1f5">
+    <title>Um pedido especial para você</title>
+    <link rel="stylesheet" href="InterfaceProjeto-Leticia.css">
+    <link rel="stylesheet" href="progresso-site.css">
+    <script src="cursor-romantico.js" defer></script>
+    <script src="progresso-site.js" defer></script>
+    <style>
+        body {
+            display: grid;
+            min-height: 100vh;
+            place-items: center;
+            padding: 1.25rem;
+            background:
+                radial-gradient(ellipse at 10% 15%, rgba(255, 255, 255, 0.9), transparent 34%),
+                radial-gradient(ellipse at 90% 85%, rgba(237, 184, 202, 0.45), transparent 36%),
+                #fff1f5;
+        }
+
+        .proposal-card {
+            position: relative;
+            text-align: center;
+            width: min(100%, 680px);
+            overflow: hidden;
+            padding: clamp(1.5rem, 6vw, 3.5rem);
+            border: 1px solid rgba(156, 73, 103, 0.22);
+            border-radius: 28px;
+            background: rgba(255, 250, 252, 0.94);
+            box-shadow: 0 20px 60px rgba(99, 59, 77, 0.16);
+        }
+
+        .proposal-card::before,
+        .proposal-card::after {
+            position: absolute;
+            color: rgba(156, 73, 103, 0.12);
+            content: "♥";
+            pointer-events: none;
+        }
+
+        .proposal-card::before {
+            top: 1rem;
+            right: 1.4rem;
+            font-size: 4rem;
+            transform: rotate(15deg);
+        }
+
+        .proposal-card::after {
+            bottom: 0.4rem;
+            left: 1rem;
+            font-size: 3rem;
+            transform: rotate(-15deg);
+        }
+
+        .proposal-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .proposal-eyebrow {
+            margin: 0 0 0.65rem;
+            color: #9c4967;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .proposal-card h1 {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            font-size: clamp(2.2rem, 8vw, 3.7rem);
+        }
+
+        .proposal-heart {
+            display: inline-block;
+            margin: 1.35rem 0 0.4rem;
+            color: #c05b7c;
+            font-size: 2.3rem;
+            animation: heartbeat 1.8s ease-in-out infinite;
+        }
+
+        .proposal-message {
+            max-width: 35rem;
+            margin: 0.9rem auto 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.05rem, 3vw, 1.22rem);
+            line-height: 1.9;
+        }
+
+        .proposal-message {
+            max-width: 46rem;
+            font-size: clamp(1rem, 2.6vw, 1.12rem);
+            line-height: 1.85;
+            text-align: center;
+        }
+
+        .proposal-message p {
+            margin: 0 0 1.15rem;
+        }
+
+        .proposal-message p:last-child {
+            margin-bottom: 0;
+        }
+
+        .proposal-letter-title {
+            margin: 0 0 1.35rem;
+            color: #9c4967;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+        }
+
+        .proposal-question {
+            margin: 1.8rem 0 0.5rem;
+            color: #9c4967;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.6rem, 5vw, 2.25rem);
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .proposal-name {
+            color: #633b4d;
+        }
+
+        .proposal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .proposal-actions button {
+            min-height: 48px;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #9c4967;
+            border-radius: 999px;
+            background: #9c4967;
+            color: #fff;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .proposal-actions button:hover {
+            background: #803c56;
+            transform: translateY(-2px);
+        }
+
+        .proposal-actions button:focus-visible {
+            outline: 3px solid #633b4d;
+            outline-offset: 3px;
+        }
+
+        .proposal-response {
+            min-height: 1.6em;
+            margin: 1.1rem auto 0;
+            color: #803c56;
+            font-weight: bold;
+        }
+
+        .proposal-signature {
+            margin: 1.8rem 0 0;
+            color: #9c4967;
+            font-family: Georgia, "Times New Roman", serif;
+            font-style: italic;
+        }
+
+        .acceptance-surprise[hidden] {
+            display: none;
+        }
+
+        .acceptance-surprise {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border: 1px solid #edb8ca;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #fff, #fff1f5);
+            animation: surprise-appear 0.6s ease-out both;
+        }
+
+        .acceptance-surprise h2 {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            color: #9c4967;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.4rem, 5vw, 1.9rem);
+        }
+
+        .contract-animation {
+            display: block;
+            width: min(100%, 420px);
+            height: auto;
+            margin: 0.75rem auto 0;
+            overflow: visible;
+        }
+
+        .contract-paper {
+            fill: #fffdfd;
+            stroke: #d983a0;
+            stroke-width: 2;
+        }
+
+        .contract-heading {
+            fill: #9c4967;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .contract-copy {
+            fill: #805565;
+            font-family: "Trebuchet MS", sans-serif;
+            font-size: 12px;
+        }
+
+        .contract-line {
+            stroke: #c98a9e;
+            stroke-width: 1.5;
+        }
+
+        .contract-signature-text {
+            fill: #9c4967;
+            font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive;
+            font-size: 36px;
+            font-style: italic;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-pen {
+            opacity: 0;
+        }
+
+        /* SVG width is updated by the animation script. */
+        .contract-ink-reveal {
+            transition: none;
+        }
+
+        .contract-note {
+            margin: 0.25rem 0 0;
+            color: #803c56;
+            font-family: Georgia, "Times New Roman", serif;
+            font-style: italic;
+        }
+
+        .music-picker {
+            margin-top: 1rem;
+        }
+
+        .music-picker input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            clip-path: inset(50%);
+        }
+
+        .music-picker label {
+            display: inline-block;
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            background: #f9dce5;
+            color: #633b4d;
+            font-weight: bold;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+            cursor: pointer;
+        }
+
+        .music-picker label:hover,
+        .music-picker input:focus-visible + label {
+            background: #edb8ca;
+            outline: 2px solid #633b4d;
+            outline-offset: 2px;
+        }
+
+        .acceptance-music {
+            display: block;
+            width: min(100%, 360px);
+            margin: 0.85rem auto 0;
+        }
+
+        .acceptance-music[hidden] {
+            display: none;
+        }
+
+        .music-status {
+            min-height: 1.5em;
+            margin: 0.4rem 0 0;
+            font-size: 0.9rem;
+        }
+
+        .contract-lyrics {
+            margin-top: 1.25rem;
+            padding: 1.1rem clamp(0.8rem, 3vw, 1.4rem);
+            border: 1px solid #edb8ca;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.72);
+            color: #633b4d;
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.75;
+            text-align: center;
+            animation: surprise-appear 0.6s ease-out both;
+        }
+
+        .contract-lyrics[hidden] { display: none; }
+        .contract-lyrics h3 { margin: 0 0 0.75rem; color: #9c4967; font-size: 1.2rem; text-align: center; }
+        .contract-lyrics ol {
+            margin: 0;
+            padding: 0;
+            list-style-position: inside;
+            text-align: center;
+        }
+
+        .contract-lyrics li {
+            margin: 0.65rem 0;
+            text-align: center;
+        }
+
+        .contract-lyrics li::marker {
+            color: #9c4967;
+            font-weight: bold;
+        }
+
+        .home-return-button {
+            display: block;
+            margin: 1.5rem auto 0;
+            padding: .8rem 1.35rem;
+            border: 1px solid #c5a87c;
+            border-radius: 999px;
+            background: linear-gradient(145deg, #9c4967, #7d3e57);
+            box-shadow: 0 8px 20px rgba(125,62,87,.2);
+            color: #fffaf5;
+            font: 700 .95rem "Trebuchet MS", "Segoe UI", sans-serif;
+            cursor: pointer;
+            transition: transform 160ms ease, box-shadow 160ms ease;
+        }
+
+        .home-return-button:hover {
+            box-shadow: 0 10px 24px rgba(125,62,87,.28);
+            transform: translateY(-2px);
+        }
+
+        .home-return-button:focus-visible {
+            outline: 3px solid #c5a87c;
+            outline-offset: 3px;
+        }
+
+        .celebration-confetti {
+            position: fixed;
+            z-index: 1200;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .celebration-confetti-piece {
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            width: 7px;
+            height: 11px;
+            border-radius: 2px;
+            animation: confetti-burst var(--confetti-duration) cubic-bezier(.15,.7,.3,1) both;
+        }
+
+        @keyframes confetti-burst {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(.3) rotate(0); }
+            10% { opacity: .9; }
+            100% {
+                opacity: 0;
+                transform: translate(calc(-50% + var(--confetti-x)), calc(-50% + var(--confetti-y))) rotate(var(--confetti-rotation));
+            }
+        }
+
+        .home-transition {
+            position: fixed;
+            z-index: 10000;
+            inset: 0;
+            background: linear-gradient(115deg, #f8edf0, #fffaf2 48%, #ead1d9);
+            pointer-events: none;
+            transform: translateX(-105%);
+        }
+
+        .home-transitioning .proposal-card {
+            animation: proposal-slide-away .85s ease-in both;
+        }
+
+        .home-transitioning .home-transition {
+            animation: home-slide-sweep .9s cubic-bezier(.7,0,.2,1) both;
+        }
+
+        @keyframes proposal-slide-away {
+            to { opacity: 0; transform: translateX(-4vw) scale(.98); }
+        }
+
+        @keyframes home-slide-sweep {
+            0% { transform: translateX(-105%); }
+            55% { transform: translateX(0); }
+            100% { transform: translateX(105%); }
+        }
+
+        .home-return-button[hidden] { display: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .celebration-confetti { display: none; }
+            .home-transitioning .proposal-card,
+            .home-transitioning .home-transition { animation: none; }
+        }
+
+        @keyframes surprise-appear {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            12% { transform: scale(1.13); }
+            24% { transform: scale(1); }
+            36% { transform: scale(1.09); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+        }
+
+
+        /* Letter-like styling: calm paper, wine ink, and restrained ornament. */
+        :root {
+            color-scheme: light;
+            --letter-paper: #fffdf8;
+            --letter-ink: #392d2c;
+            --letter-wine: #713b4d;
+            --letter-rose: #ad7584;
+            --letter-gold: #b59a6a;
+            --letter-rule: rgba(113, 59, 77, 0.18);
+        }
+
+        body {
+            display: block;
+            min-height: 100vh;
+            padding: clamp(1rem, 4vw, 3.25rem) 1rem;
+            background:
+                radial-gradient(ellipse at 15% 10%, rgba(255,255,255,.92), transparent 34rem),
+                radial-gradient(ellipse at 88% 78%, rgba(210,185,165,.25), transparent 30rem),
+                linear-gradient(145deg, #eee8df, #f7f2eb 48%, #e8e0d8);
+            color: var(--letter-ink);
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        body::before {
+            position: fixed;
+            inset: 0;
+            min-height: 100vh;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 8% 14%, rgba(173,117,132,.1) 0 1px, transparent 1.6px),
+                radial-gradient(circle at 92% 83%, rgba(181,154,106,.11) 0 1px, transparent 1.6px);
+            background-size: 28px 28px, 34px 34px;
+            opacity: .42;
+        }
+
+        body::after {
+            position: fixed;
+            inset: 0;
+            min-height: 100vh;
+            z-index: 0;
+            background:
+                linear-gradient(90deg, transparent, rgba(181,154,106,.45), transparent) center top 1rem / min(330px, 62vw) 1px no-repeat,
+                linear-gradient(90deg, transparent, rgba(181,154,106,.45), transparent) center bottom 1rem / min(330px, 62vw) 1px no-repeat;
+            opacity: .75;
+        }
+
+        .proposal-card {
+            width: min(100%, 900px);
+            margin: 0 auto;
+            padding: clamp(2rem, 7vw, 5.25rem);
+            overflow: visible;
+            border: 1px solid rgba(113,59,77,.22);
+            border-radius: 5px;
+            background:
+                linear-gradient(90deg, rgba(181,154,106,.045), transparent 7%, transparent 93%, rgba(181,154,106,.045)),
+                var(--letter-paper);
+            box-shadow: 0 26px 72px rgba(54,39,34,.17), 0 3px 10px rgba(54,39,34,.06);
+            isolation: isolate;
+        }
+
+        .proposal-card::before {
+            inset: 12px;
+            border: 1px solid rgba(181,154,106,.34);
+            border-radius: 2px;
+            color: transparent;
+            content: "";
+            pointer-events: none;
+        }
+
+        .proposal-card::after { content: none; }
+        .proposal-content { text-align: left; }
+
+        .proposal-header {
+            position: relative;
+            padding: .4rem 0 1.7rem;
+            border-bottom: 1px solid var(--letter-rule);
+            text-align: center;
+        }
+
+        .proposal-eyebrow {
+            color: var(--letter-rose);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            font-size: .72rem;
+            letter-spacing: .2em;
+        }
+
+        .proposal-card h1 {
+            color: var(--letter-wine);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(2.4rem, 7vw, 4.1rem);
+            font-weight: 500;
+            letter-spacing: -.035em;
+        }
+
+        .proposal-heart {
+            display: grid;
+            width: 3rem;
+            height: 3rem;
+            place-items: center;
+            margin: 1.2rem auto 0;
+            border: 1px solid rgba(181,154,106,.58);
+            border-radius: 50%;
+            background: var(--letter-paper);
+            color: var(--letter-wine);
+            font-size: 1.15rem;
+            animation: none;
+        }
+
+        .proposal-message {
+            max-width: 46rem;
+            margin: 2.2rem auto 0;
+            color: var(--letter-ink);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1rem, 2.2vw, 1.14rem);
+            line-height: 1.95;
+            text-align: left;
+        }
+
+        .proposal-message p { margin: 0 0 1.25rem; padding-left: .2rem; }
+        .proposal-message p:last-child { margin-bottom: 0; }
+
+        .proposal-letter-title {
+            margin: 0 0 1.9rem;
+            color: var(--letter-wine);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.7rem, 4vw, 2.15rem);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .proposal-letter-title::after {
+            display: block;
+            width: 5rem;
+            height: 1px;
+            margin: .8rem auto 0;
+            background: var(--letter-gold);
+            content: "";
+        }
+
+        .proposal-message strong { color: var(--letter-wine); }
+
+        .proposal-question {
+            margin: 2rem 0 1.65rem !important;
+            padding: 1.15rem 1.3rem !important;
+            border-top: 1px solid var(--letter-rule);
+            border-bottom: 1px solid var(--letter-rule);
+            color: var(--letter-wine);
+            font-size: clamp(1.45rem, 4vw, 2rem);
+            line-height: 1.45;
+            text-align: center;
+        }
+
+        .proposal-actions { margin-top: 1.2rem; }
+
+        .proposal-actions button {
+            min-height: 52px;
+            padding: .85rem 1.8rem;
+            border: 1px solid var(--letter-wine);
+            background: var(--letter-wine);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            font-size: .95rem;
+            letter-spacing: .025em;
+            box-shadow: 0 7px 18px rgba(113,59,77,.17);
+        }
+
+        .proposal-actions button:hover { background: #5d3040; }
+
+        .proposal-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--letter-rule);
+            text-align: center;
+        }
+
+        .proposal-signature {
+            margin: 0;
+            color: var(--letter-rose);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .acceptance-surprise {
+            border-color: rgba(181,154,106,.45);
+            border-radius: 5px;
+            background: linear-gradient(145deg, #fffdf8, #f8f0ed);
+        }
+
+        .acceptance-surprise h2,
+        .contract-lyrics h3 { color: var(--letter-wine); }
+
+        @media (max-width: 600px) {
+            body { padding: .75rem; }
+            .proposal-card { padding: 2rem 1.55rem; }
+            .proposal-card::before { inset: 8px; }
+            .proposal-message { margin-top: 1.6rem; font-size: 1rem; line-height: 1.82; }
+            .proposal-message p { margin-bottom: 1.1rem; }
+            .proposal-header { padding-bottom: 1.25rem; }
+        }
+
+
+
+        /* Blend the original blush palette with the letter paper layout. */
+        :root {
+            --letter-paper: #fffafc;
+            --letter-ink: #392d32;
+            --letter-wine: #87445f;
+            --letter-rose: #ad617d;
+            --letter-gold: #c5a87c;
+            --letter-rule: rgba(156, 73, 103, 0.2);
+        }
+
+        body {
+            background:
+                radial-gradient(ellipse at 8% 12%, rgba(255,255,255,.96), transparent 32rem),
+                radial-gradient(ellipse at 90% 20%, rgba(237,184,202,.42), transparent 28rem),
+                radial-gradient(ellipse at 12% 88%, rgba(249,220,229,.72), transparent 30rem),
+                linear-gradient(145deg, #f8edf0, #fff5f7 48%, #f1e4e5);
+        }
+
+        body::before {
+            background:
+                radial-gradient(circle at 8% 14%, rgba(156,73,103,.11) 0 1px, transparent 1.7px),
+                radial-gradient(circle at 92% 83%, rgba(197,168,124,.13) 0 1px, transparent 1.7px);
+            background-size: 28px 28px, 34px 34px;
+            opacity: .5;
+        }
+
+        body::after {
+            background:
+                linear-gradient(90deg, transparent, rgba(156,73,103,.44), transparent) center top 1rem / min(330px, 62vw) 1px no-repeat,
+                linear-gradient(90deg, transparent, rgba(156,73,103,.44), transparent) center bottom 1rem / min(330px, 62vw) 1px no-repeat;
+        }
+
+        .proposal-card {
+            border: 1px solid rgba(156,73,103,.28);
+            border-radius: 25px;
+            background:
+                radial-gradient(ellipse at 100% 0%, rgba(249,220,229,.38), transparent 20rem),
+                linear-gradient(145deg, #fffdfd, var(--letter-paper) 62%, #fff6f8);
+            box-shadow: 0 25px 70px rgba(99,59,77,.17), 0 3px 10px rgba(99,59,77,.06);
+        }
+
+        .proposal-card::before {
+            inset: 11px;
+            border-color: rgba(197,168,124,.43);
+            border-radius: 17px;
+        }
+
+        .proposal-card::after {
+            position: absolute;
+            right: 1.35rem;
+            bottom: .55rem;
+            display: block;
+            color: rgba(156,73,103,.11);
+            content: "\2665";
+            font-family: Georgia, serif;
+            font-size: 3.4rem;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .proposal-header {
+            border-bottom-color: rgba(156,73,103,.2);
+        }
+
+        .proposal-eyebrow { color: #9c4967; }
+
+        .proposal-heart {
+            border-color: rgba(156,73,103,.3);
+            background: linear-gradient(145deg, #fff, #fff0f4);
+            color: #9c4967;
+            box-shadow: 0 5px 16px rgba(156,73,103,.12);
+            animation: heartbeat 2.8s ease-in-out infinite;
+        }
+
+        .proposal-letter-title { color: #87445f; }
+
+        .proposal-letter-title::after {
+            background: linear-gradient(90deg, transparent, #c5a87c, #d89aac, #c5a87c, transparent);
+        }
+
+        .proposal-question {
+            border-color: rgba(156,73,103,.2);
+            color: #87445f;
+        }
+
+        .proposal-actions button {
+            border-color: #87445f;
+            background: linear-gradient(145deg, #9c4967, #7d3e57);
+            box-shadow: 0 8px 20px rgba(125,62,87,.2);
+        }
+
+        .proposal-actions button:hover { background: #71374e; }
+
+        .proposal-footer { border-top-color: rgba(156,73,103,.2); }
+        .proposal-signature { color: #9c4967; }
+
+        .acceptance-surprise {
+            border-color: rgba(217,131,160,.48);
+            border-radius: 18px;
+            background: linear-gradient(145deg, #fff, #fff1f5);
+        }
+
+        @media (max-width: 600px) {
+            .proposal-card { border-radius: 20px; }
+            .proposal-card::before { inset: 8px; border-radius: 13px; }
+            .proposal-card::after { right: .8rem; bottom: .4rem; font-size: 2.4rem; }
+        }
+
+
+
+        /* Envelope animation shown after the proposal is accepted. */
+        .letter-overlay[hidden], .opened-letter[hidden], .flying-envelope[hidden], .letter-actions[hidden] { display: none !important; }
+        .letter-overlay {
+            position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center;
+            overflow-y: auto; padding: 1.25rem; background: rgba(45,30,38,.72);
+            backdrop-filter: blur(8px); animation: letter-backdrop-in .35s ease-out both;
+        }
+        .letter-dialog { width: min(100%, 648px); text-align: center; perspective: 1200px; }
+        .letter-dialog-kicker, .opened-letter-kicker {
+            margin: 0 0 1rem; color: #f8e8ee; font: 700 .77rem "Trebuchet MS","Segoe UI",sans-serif;
+            letter-spacing: .17em; text-transform: uppercase;
+        }
+        .flying-envelope {
+            position: relative; width: min(100%, 528px); height: 300px; margin: 0 auto; border-radius: 12px;
+            filter: drop-shadow(0 30px 38px rgba(0,0,0,.36)); transform-style: preserve-3d;
+            animation: letter-flight 1.15s cubic-bezier(.18,.78,.2,1) both;
+        }
+        .envelope-back, .envelope-paper, .envelope-flap, .envelope-front {
+            position: absolute; inset: 0; border-radius: 12px;
+        }
+        .envelope-back { z-index: 1; border: 1px solid rgba(255,255,255,.55); background: linear-gradient(145deg,#d6a0ae,#9c4967); }
+        .envelope-paper {
+            z-index: 2; inset: 13px 15px 15px; border: 1px solid rgba(181,154,106,.55);
+            background: linear-gradient(160deg,#fffefa,#fff4f6); transform: translateY(78px) scale(.94);
+            transition: transform .8s cubic-bezier(.2,.8,.2,1);
+        }
+        .envelope-flap {
+            z-index: 5; background: linear-gradient(145deg,#c88498,#87445f);
+            clip-path: polygon(0 0,100% 0,50% 76%); transform-origin: 50% 0;
+            transition: transform .75s ease, opacity .25s ease .55s; backface-visibility: hidden;
+        }
+        .envelope-front { z-index: 4; background: linear-gradient(145deg,#d6a0ae,#a45872); clip-path: polygon(0 0,50% 60%,100% 0,100% 100%,0 100%); }
+        .envelope-seal {
+            position: absolute; top: 50%; left: 50%; z-index: 6; display: flex; width: 111px; height: 111px;
+            flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+            border: 2px solid rgba(244,205,215,.78); border-radius: 50%;
+            background: radial-gradient(circle at 32% 28%, #ad617d, #713b4d 72%);
+            color: #fff7f8; box-shadow: 0 5px 14px rgba(60,26,41,.25), inset 0 0 0 3px rgba(255,255,255,.1);
+            transform: translate(-50%,-18%); transition: opacity .2s ease, transform .2s ease;
+        }
+        .seal-monogram, .opened-letter-seal > span {
+            font: 600 1.55rem/1 "Segoe Script", "Brush Script MT", cursive;
+            text-shadow: 0 1px 2px rgba(50,20,32,.3);
+        }
+        .envelope-seal small, .opened-letter-seal small {
+            color: #f7e7d4; font: 700 .39rem/1 "Trebuchet MS", "Segoe UI", sans-serif;
+            letter-spacing: .12em;
+        }
+        .flying-envelope.is-opening .envelope-flap { transform: rotateX(180deg); opacity: .35; }
+        .flying-envelope.is-opening .envelope-paper { transform: translateY(-42px) scale(1.02); }
+        .flying-envelope.is-opening .envelope-seal { opacity: 0; transform: translate(-50%,-18%) scale(.5); }
+        .letter-actions { margin-top: 1.4rem; animation: letter-controls-in .45s ease-out 1s both; }
+        .letter-actions button, .opened-letter button {
+            min-height: 48px; padding: .8rem 1.55rem; border: 1px solid #f1c7d3; border-radius: 999px;
+            background: #fff8fa; color: #713b4d; font: 700 .95rem "Trebuchet MS","Segoe UI",sans-serif;
+            cursor: pointer; box-shadow: 0 8px 22px rgba(0,0,0,.17); transition: transform .2s, background .2s;
+        }
+        .letter-actions button:hover, .opened-letter button:hover { background: #f9dce5; transform: translateY(-2px); }
+        .opened-letter {
+            position: relative; max-height: min(78vh,680px); overflow-y: auto; margin: 0 auto;
+            padding: clamp(2rem,7vw,3.5rem); border: 1px solid rgba(197,168,124,.6); border-radius: 8px;
+            background: linear-gradient(145deg,#fffefa,#fff5f7); color: #392d32; text-align: left;
+            box-shadow: 0 24px 70px rgba(0,0,0,.35); animation: letter-unfold .8s cubic-bezier(.2,.8,.2,1) both;
+        }
+        .opened-letter-kicker { color: #ad617d; font-size: .67rem; }
+
+        .opened-letter-question {
+            margin: 1.5rem 0 1.8rem;
+            color: #87445f;
+            font: 500 clamp(1.55rem, 5vw, 2.15rem) "Segoe Script", "Brush Script MT", cursive;
+            line-height: 1.5;
+        }
+
+        .opened-letter h2 { margin: 0 0 1rem; color: #87445f; font: 500 clamp(1.8rem,6vw,2.6rem) Georgia,serif; }
+        .opened-letter p:not(.opened-letter-kicker) { color: #4c3c40; font: 1.05rem/1.85 Georgia,serif; }
+        .opened-letter button { display: block; margin: 1.5rem auto 0; border-color: #87445f; background: #87445f; color: #fff; }
+        .opened-letter button:hover { background: #71374e; color: #fff; }
+        .opened-letter-seal {
+            position: absolute; top: 1.2rem; right: 1.4rem; display: flex; width: 95px; height: 95px;
+            flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+            border: 1px solid rgba(244,205,215,.85); border-radius: 50%;
+            background: radial-gradient(circle at 32% 28%, #ad617d, #713b4d 72%);
+            color: #fff7f8; box-shadow: 0 4px 12px rgba(60,26,41,.16), inset 0 0 0 3px rgba(255,255,255,.1);
+        }
+        body.letter-modal-open { overflow: hidden; }
+        @keyframes letter-flight {
+            0% { opacity: 0; transform: translate3d(0,45vh,-650px) rotateX(24deg) rotateZ(-11deg) scale(.13); }
+            62% { opacity: 1; transform: translate3d(0,-10px,0) rotateX(-4deg) rotateZ(2deg) scale(1.04); }
+            100% { opacity: 1; transform: translate3d(0,0,0) rotateX(0) rotateZ(0) scale(1); }
+        }
+        @keyframes letter-unfold {
+            from { opacity: 0; transform: perspective(1000px) rotateX(-42deg) translateY(42px) scale(.82); transform-origin: top center; }
+            to { opacity: 1; transform: perspective(1000px) rotateX(0) translateY(0) scale(1); transform-origin: top center; }
+        }
+        @keyframes letter-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes letter-controls-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 520px) { .flying-envelope { height: 246px; } .opened-letter { padding: 2rem 1.5rem; } }
+        @media (prefers-reduced-motion: reduce) {
+            .flying-envelope,.letter-overlay,.letter-actions,.opened-letter { animation-duration: .01ms !important; }
+            .envelope-paper,.envelope-flap,.envelope-seal { transition-duration: .01ms !important; }
+        }
+
+
+
+        /* Extra romantic layer: centered writing, rose and lily ornaments. */
+        body {
+            font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        }
+
+        body::before {
+            background-image:
+                url("imagens/lirio-botanico-recorte.png"),
+                url("imagens/lirio-botanico-recorte.png"),
+                url("imagens/rosa-decorativa.svg"),
+                url("imagens/rosa-decorativa.svg");
+            background-repeat: no-repeat;
+            background-position:
+                left 1.2rem top 4.5rem,
+                right 1.2rem bottom 5rem,
+                right 6.5rem top 1.2rem,
+                left 6rem bottom 1rem;
+            background-size:
+                min(230px, 31vw) auto,
+                min(210px, 29vw) auto,
+                74px 74px,
+                66px 66px;
+            opacity: .74;
+        }
+
+        body::after {
+            background-image:
+                url("imagens/divisor-floral-lirios.svg"),
+                url("imagens/divisor-floral-rosas.svg");
+            background-repeat: no-repeat;
+            background-position: center top .7rem, center bottom .7rem;
+            background-size: min(370px, 66vw) 42px, min(370px, 66vw) 42px;
+            opacity: .66;
+        }
+
+        .proposal-content,
+        .proposal-header,
+        .proposal-message,
+        .proposal-footer,
+        .proposal-question,
+        .opened-letter { text-align: center; }
+
+        .proposal-header { padding-top: .8rem; }
+
+        .proposal-card h1,
+        .proposal-letter-title,
+        .opened-letter h2 {
+            font-family: "Segoe Script", "Snell Roundhand", "Brush Script MT", cursive;
+            font-weight: 500;
+            letter-spacing: .01em;
+        }
+
+        .proposal-card h1 { font-size: clamp(2.7rem, 8vw, 4.5rem); }
+        .proposal-letter-title { font-size: clamp(2rem, 5vw, 2.7rem); }
+
+        .proposal-message {
+            font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+            font-size: clamp(1.05rem, 2.4vw, 1.18rem);
+            line-height: 2;
+        }
+
+        .proposal-message p { padding: 0; }
+        .proposal-heart { animation: heartbeat 2.2s ease-in-out infinite; }
+        .opened-letter { text-align: center; }
+
+        @media (max-width: 600px) {
+            body::before {
+                background-position: left -.5rem top 4rem, right -.8rem bottom 3.5rem, right 2.5rem top .8rem, left 2.2rem bottom .5rem;
+                background-size: 125px auto, 120px auto, 44px 44px, 40px 40px;
+                opacity: .56;
+            }
+            body::after { background-size: min(290px, 78vw) 34px, min(290px, 78vw) 34px; }
+            .proposal-card h1 { font-size: clamp(2.5rem, 11vw, 3.5rem); }
+            .proposal-message { line-height: 1.86; }
+        }
+
+
+
+        .proposal-flower {
+            position: absolute;
+            z-index: 0;
+            display: block;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            pointer-events: none;
+        }
+
+        .proposal-flower--lily {
+            top: 7.7rem;
+            left: .7rem;
+            width: 145px;
+            height: 170px;
+            background-image: url("imagens/lirio-botanico-recorte.png");
+            opacity: .2;
+            transform: rotate(-9deg);
+        }
+
+        .proposal-flower--rose {
+            right: 1rem;
+            bottom: 6rem;
+            width: 92px;
+            height: 110px;
+            background-image: url("imagens/rosa-decorativa.svg");
+            opacity: .2;
+            transform: rotate(12deg);
+        }
+
+        @media (max-width: 600px) {
+            .proposal-flower--lily { top: 6.8rem; left: .35rem; width: 86px; height: 105px; opacity: .16; }
+            .proposal-flower--rose { right: .45rem; bottom: 5rem; width: 60px; height: 70px; opacity: .16; }
+        }
+
+
+
+        .letter-dialog .opened-letter p.opened-letter-question {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            margin: 2.2rem 0 1.8rem;
+            padding: 1.4rem 1rem;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid rgba(190,112,143,.58);
+            border-radius: 18px;
+            background: linear-gradient(115deg,#ffe6ee,#fff9fb 34%,#f8e9c9 51%,#fff7fa 68%,#ffe3ec);
+            color: #8a355b;
+            font: 600 clamp(1.65rem,5.3vw,2.35rem)/1.45 "Segoe Script","Brush Script MT",cursive;
+            text-shadow: 0 0 7px #fff, 0 0 17px rgba(204,102,143,.65);
+            box-shadow: 0 10px 28px rgba(156,73,103,.24), inset 0 0 18px rgba(255,255,255,.78);
+        }
+        .letter-dialog .opened-letter p.opened-letter-question strong { grid-column: 2; color: inherit; font-weight: 600; }
+        .question-spark {
+            display: inline-block;
+            color: #a83e64;
+            font: 1em/1 "Trebuchet MS",sans-serif;
+            text-shadow: 0 0 8px #fff, 0 0 14px rgba(205,115,151,.55);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .letter-dialog .opened-letter p.opened-letter-question, .question-spark { animation: none; }
+        }
+        @media (max-width: 520px) {
+            .letter-dialog .opened-letter p.opened-letter-question { grid-template-columns: auto minmax(0, 1fr) auto; gap: .25rem; padding: 1.1rem .6rem; font-size: clamp(1.4rem,6vw,1.8rem); }
+        }
+
+        .couple-mark {
+            display: inline-block;
+            color: #b48366;
+            font: 700 .72rem/1.2 "Trebuchet MS", "Segoe UI", sans-serif;
+            letter-spacing: .16em;
+        }
+        .proposal-header .couple-mark {
+            display: block;
+            width: max-content;
+            margin: .65rem auto 0;
+            transform: rotate(-7deg);
+        }
+        .proposal-message .couple-mark--sprinkle {
+            display: block;
+            width: max-content;
+            margin: .55rem auto 1.45rem;
+            padding: .32rem .68rem;
+            border: 1px solid rgba(181,154,106,.4);
+            border-radius: 999px;
+            background: rgba(255,250,252,.78);
+            transform: rotate(5deg);
+        }
+        .proposal-signature .couple-mark { margin-left: .55rem; font-style: normal; }
+        .seal-monogram { font-size: 1.65rem; letter-spacing: -.08em; white-space: nowrap; }
+        .opened-letter-seal > span { font-size: 1.46rem; letter-spacing: -.08em; white-space: nowrap; }
+        .envelope-seal small, .opened-letter-seal small { font-size: .47rem; letter-spacing: .035em; }
+        .envelope-seal, .opened-letter-seal {
+            --seal-heart: polygon(50% 97%, 44% 91%, 35% 83%, 26% 75%, 17% 66%, 10% 57%, 4% 48%, 1% 39%, 1% 31%, 4% 23%, 9% 16%, 16% 11%, 24% 9%, 32% 10%, 39% 14%, 45% 20%, 50% 26%, 55% 20%, 61% 14%, 68% 10%, 76% 9%, 84% 11%, 91% 16%, 96% 23%, 99% 31%, 99% 39%, 96% 48%, 90% 57%, 83% 66%, 74% 75%, 65% 83%, 56% 91%);
+            overflow: visible;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            isolation: isolate;
+        }
+        .envelope-seal::before, .opened-letter-seal::before,
+        .envelope-seal::after, .opened-letter-seal::after {
+            position: absolute;
+            content: "";
+            clip-path: var(--seal-heart);
+            pointer-events: none;
+        }
+        .envelope-seal::before, .opened-letter-seal::before {
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(145deg, #fff0bc, #bd9250 40%, #f7dda0 68%, #9c7139);
+            filter: drop-shadow(0 5px 8px rgba(67,31,43,.35));
+        }
+        .envelope-seal::after, .opened-letter-seal::after {
+            inset: 4px;
+            z-index: 1;
+            background: radial-gradient(circle at 35% 25%, #b96d89, #713b4d 74%);
+        }
+        .envelope-seal > span, .envelope-seal > small,
+        .opened-letter-seal > span, .opened-letter-seal > small {
+            position: relative;
+            z-index: 2;
+        }
+        .envelope-seal > .seal-monogram, .opened-letter-seal > span {
+            color: #fff8e7;
+            text-shadow: 0 1px 2px rgba(50,20,32,.38), 0 0 8px rgba(239,202,121,.48);
+        }
+        .envelope-seal small, .opened-letter-seal small {
+            color: #f6d98e;
+            text-shadow: 0 1px 2px rgba(50,20,32,.55);
+        }
+
+        #resposta-sim {
+            border-color: #b28a43;
+            background: linear-gradient(135deg, #f8e6b5 0%, #d2ad63 48%, #f1d995 100%);
+            box-shadow: 0 8px 20px rgba(151, 111, 43, .22), inset 0 1px 0 rgba(255, 255, 255, .72);
+            color: #553d19;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
+        }
+
+        #resposta-sim:hover {
+            border-color: #9c7434;
+            background: linear-gradient(135deg, #f3dda0 0%, #c49a4d 52%, #e8cb83 100%);
+            box-shadow: 0 10px 24px rgba(151, 111, 43, .28), inset 0 1px 0 rgba(255, 255, 255, .6);
+        }
+
+        #resposta-sim:focus-visible {
+            outline: 3px solid #a87d35;
+            outline-offset: 4px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="brand-doodles.css">
+    <link rel="stylesheet" href="identidade-visual.css">
+</head>
+<body>
+    <main class="proposal-card">
+        <span class="proposal-flower proposal-flower--lily" aria-hidden="true"></span>
+        <span class="proposal-flower proposal-flower--rose" aria-hidden="true"></span>
+        <div class="proposal-content">
+            <header class="proposal-header">
+                <p class="proposal-eyebrow">Uma pergunta guardada no coração</p>
+            <h1>Para a Letícia</h1>
+            <span class="proposal-heart" aria-hidden="true">♥</span>
+            <span class="couple-mark" aria-hidden="true">G+L</span>
+            </header>
+            <div class="proposal-message">
+                <h2 class="proposal-letter-title">Meu Sonho de Amor ❤️</h2>
+                <p>Desde que nossos caminhos se cruzaram,<br>
+                    você foi deixando meus dias mais felizes.<br>
+                    E, entre conversas, sorrisos e olhares,<br>
+                    meu coração descobriu o que antes não sabia explicar.</p>
+                <p>Eu não sei dizer em que momento aconteceu,<br>
+                    se foi no brilho dos seus olhos<br>
+                    ou no seu sorriso de pérolas,<br>
+                    mas, quando percebi,<br>
+                    meu mundo já tinha um pouquinho mais de você.</p>
+                <p>E hoje, entre tantas pessoas nesse mundo,<br>
+                    tantos sorrisos por aí,<br>
+                    tantos olhares que eu poderia encontrar,<br>
+                    é o seu que eu procuro,<br>
+                    é o seu abraço que eu quero,<br>
+                    é ao seu lado que eu quero estar.</p>
+                <p><strong>Eu só quero você.</strong><br>
+                    Não importa o que vão dizer,<br>
+                    não importa o que o mundo lá fora pense,<br>
+                    se depender de mim,<br>
+                    é você que eu vou escolher.</p>
+                <span class="couple-mark couple-mark--sprinkle" aria-hidden="true">G+L</span>
+                <p>Porque a vida ficou mais colorida com você,<br>
+                    meu mundo para quando você chega,<br>
+                    e o seu sorriso abre as portas do paraíso.<br>
+                    Se existe um lugar onde encontro paz,<br>
+                    tenho certeza de que é onde você está.</p>
+                <p>Ô, menina, eu nunca vi nada igual!<br>
+                    Até nossas loucuras combinam,<br>
+                    e, de algum jeito que nem sei explicar,<br>
+                    você chegou e fez tudo se encaixar.</p>
+                <p>Eu viajei no seu olhar,<br>
+                    me perdi no seu sorriso,<br>
+                    me encantei com seus segredos<br>
+                    e descobri que amar<br>
+                    é encontrar beleza até nas pequenas coisas,<br>
+                    é querer ouvir sua voz antes de dormir,<br>
+                    é sorrir sozinho lembrando de você,<br>
+                    é sentir saudade mesmo pouco tempo depois de partir.</p>
+                <p>Às vezes, fico olhando nossas fotos,<br>
+                    tentando guardar cada instante,<br>
+                    e meu coração parece reconhecer sua voz<br>
+                    mesmo quando o silêncio toma conta do ambiente.</p>
+                <p>Você chegou mudando os meus planos,<br>
+                    fez minha vida caminhar para a frente,<br>
+                    e o que antes era apenas um sonho distante<br>
+                    agora é um sentimento cada vez mais presente.</p>
+                <p>Eu estava te esperando,<br>
+                    talvez sem nem saber que era você.<br>
+                    E, quando meu olhar encontrou o seu,<br>
+                    pareceu que o mundo parou por um segundo<br>
+                    só para me fazer entender<br>
+                    que valeu a pena esperar.</p>
+                <p>Você é como um céu carregado de estrelas,<br>
+                    com a lua refletindo a luz do seu olhar.<br>
+                    E, se eu pudesse escolher qualquer lugar do universo,<br>
+                    escolheria estar com você,<br>
+                    sob esse céu infinito,<br>
+                    com a noite inteira para a gente se amar.</p>
+                <p>Nem Van Gogh, com todos os seus pincéis,<br>
+                    conseguiria reproduzir sua beleza.<br>
+                    Você parece uma obra que o próprio Deus pintou,<br>
+                    uma joia rara,<br>
+                    um presente que a vida me apresentou.</p>
+                <p>E eu me pergunto, às vezes,<br>
+                    como Deus pode colocar alguém tão especial<br>
+                    no caminho de uma pessoa como eu?<br>
+                    Talvez Ele saiba de coisas<br>
+                    que eu ainda não consigo compreender,<br>
+                    mas sou grato por cada oração,<br>
+                    por cada encontro<br>
+                    e por cada momento que me aproxima de você.</p>
+                <p>Não quero prometer um conto de fadas,<br>
+                    nem dizer que nunca teremos dias difíceis.<br>
+                    Quero prometer algo muito mais verdadeiro:<br>
+                    estar disposto a aprender,<br>
+                    a conversar quando algo não estiver bem,<br>
+                    a respeitar seus sentimentos,<br>
+                    a cuidar do que estamos construindo<br>
+                    e a escolher você novamente a cada dia.</p>
+                <p>Quero ser aquele que te faz sorrir,<br>
+                    que te escuta quando precisar falar,<br>
+                    que respeita seus medos e suas inseguranças<br>
+                    e que te lembra, nos dias difíceis,<br>
+                    o quanto você é especial.</p>
+                <p>Quero te amar com paciência,<br>
+                    com carinho, respeito e lealdade.<br>
+                    Quero que o nosso amor cresça com o tempo,<br>
+                    sem pressa, sem jogos, sem falsidade,<br>
+                    com Deus à frente dos nossos passos<br>
+                    e a verdade guiando nossa caminhada.</p>
+                <p>Porque amar você não é querer te prender,<br>
+                    é querer caminhar ao seu lado.<br>
+                    Não é pedir que você seja perfeita,<br>
+                    é admirar quem você é de verdade.</p>
+                <p>E, se algum dia o mundo pesar,<br>
+                    quero que você encontre em mim<br>
+                    um abraço onde possa descansar,<br>
+                    uma voz que te traga tranquilidade<br>
+                    e alguém que continue aqui,<br>
+                    disposto a te ouvir e a te compreender.</p>
+                <p>Princesa, eu quero viver os detalhes:<br>
+                    os encontros, as conversas sem hora para acabar,<br>
+                    as risadas por motivos bobos,<br>
+                    as mãos dadas enquanto caminhamos<br>
+                    e os beijos que fazem o tempo parar.</p>
+                <p>Quero conhecer cada versão sua,<br>
+                    celebrar suas conquistas,<br>
+                    apoiar seus sonhos<br>
+                    e estar presente nas pequenas coisas<br>
+                    que, no fim das contas,<br>
+                    são as que tornam a vida tão bonita.</p>
+                <p>E, quando a saudade apertar,<br>
+                    quero diminuir a distância com um abraço.<br>
+                    Quando você sorrir, quero sorrir também.<br>
+                    E, quando olhar para o futuro,<br>
+                    quero poder dizer que tive a sorte<br>
+                    de encontrar você no meu caminho.</p>
+                <p>Talvez seja cedo para falar de eternidade,<br>
+                    mas não é cedo para ser sincero.<br>
+                    Não sei tudo o que o amanhã nos reserva,<br>
+                    porém sei o que sinto agora<br>
+                    e sei o que desejo construir com você.</p>
+                <p>Eu não quero apenas fazer parte<br>
+                    de uma página bonita da sua história.<br>
+                    Quero escrever, junto com você,<br>
+                    capítulos que valham a pena recordar.</p>
+                <p>Porque, entre tantas possibilidades,<br>
+                    meu coração encontrou sua direção.<br>
+                    E, se me perguntarem qual é meu sonho de amor,<br>
+                    eu não preciso procurar palavras difíceis:<br>
+                    <strong>meu sonho tem seu sorriso,<br>
+                    seu olhar e seu nome.</strong></p>
+                <p>É você, a dona dos meus sonhos,<br>
+                    a menina que conquistou meu coração,<br>
+                    a pessoa que transformou conversas simples<br>
+                    em lembranças cheias de emoção.</p>
+                <p>E agora, olhando para tudo o que vivemos,<br>
+                    sinto que chegou a hora de abrir meu coração<br>
+                    e te contar o que venho guardando aqui dentro.</p>
+                <p>Não quero mais deixar apenas nas entrelinhas<br>
+                    aquilo que meus olhos tentam dizer.<br>
+                    Quero que você saiba, com todas as letras,<br>
+                    que estou apaixonado por você.</p>
+                <p><strong>Eu amo você.</strong><br>
+                    Amo seu sorriso, seu jeito, sua essência,<br>
+                    amo a paz que sinto quando estou com você.<br>
+                    E, se depender de mim,<br>
+                    quero continuar descobrindo, dia após dia,<br>
+                    novos motivos para te amar.</p>
+                <p>Então, minha princesa,<br>
+                    deixa eu te fazer uma pergunta<br>
+                    que carrego no coração<br>
+                    e que pode transformar nossa história<br>
+                    em algo ainda mais bonito.</p>
+                <p>Quero segurar sua mão,<br>
+                    olhar nos seus lindos olhos<br>
+                    e, diante de tudo o que sinto,<br>
+                    te perguntar com todo o carinho do mundo:</p>
+                <p class="proposal-question"><strong>❤️Leticia Oliveira Pugliese❤️</strong></p>
+            </div>
+            <div class="proposal-actions">
+                <button id="resposta-sim" type="button">Receber minha carta &#128140;</button>
+            </div>
+            <p id="mensagem-resposta" class="proposal-response" aria-live="polite"></p>
+            <footer class="proposal-footer"><p class="proposal-signature">Com todo o meu carinho, para você.<span class="couple-mark" aria-hidden="true">G+L</span></p></footer>
+            <section id="surpresa-aceite" class="acceptance-surprise" aria-labelledby="titulo-surpresa" hidden>
+                <h2 id="titulo-surpresa">Então está combinado! ❤️</h2>
+                <svg class="contract-animation" viewBox="0 0 420 230" role="img" aria-labelledby="titulo-contrato descricao-contrato">
+                    <title id="titulo-contrato">Contrato de namoro sendo assinado</title>
+                    <desc id="descricao-contrato">Uma caneta desenha uma assinatura no contrato.</desc>
+                    <rect class="contract-paper" x="30" y="12" width="360" height="205" rx="14"></rect>
+                    <text class="contract-heading" x="210" y="48" text-anchor="middle">Nosso combinado</text>
+                    <text class="contract-copy" x="210" y="82" text-anchor="middle">Prometemos cuidar com carinho desta história,</text>
+                    <text class="contract-copy" x="210" y="101" text-anchor="middle">compartilhar sorrisos e viver momentos especiais.</text>
+                    <text class="contract-copy" x="210" y="120" text-anchor="middle">Assinado com amor:</text>
+                    <line class="contract-line" x1="58" y1="177" x2="320" y2="177"></line>
+                    <defs>
+                        <clipPath id="assinatura-revelada" clipPathUnits="userSpaceOnUse">
+                            <rect class="contract-ink-reveal" x="142" y="132" width="0" height="55"></rect>
+                        </clipPath>
+                    </defs>
+                    <path id="trilho-caneta" d="M 145 165 C 158 154, 173 177, 190 166 S 225 156, 268 165" fill="none" stroke="none" aria-hidden="true"></path>
+                    <text class="contract-signature-text" x="146" y="174" textLength="122" lengthAdjust="spacingAndGlyphs" clip-path="url(#assinatura-revelada)">Aceito</text>
+                    <g class="contract-pen" transform="translate(145 165)" aria-hidden="true">
+                        <g transform="scale(0.62)">
+                            <path d="M0 0 L8 -8 L64 -64 L56 -72 Z" fill="#9c4967"></path>
+                            <path d="M0 0 L8 -8 L16 0 Z" fill="#633b4d"></path>
+                            <path d="M2 -2 L7 -7 L59 -59 L54 -64 Z" fill="#f9dce5"></path>
+                            <path d="M56 -72 L64 -64 L54 -54 L46 -62 Z" fill="#d983a0"></path>
+                        </g>
+                    </g>
+                </svg>
+                <p class="contract-note">Assinado com carinho e um coração bem feliz.</p>
+                <div class="music-picker">
+                    <audio id="musica-contrato" preload="none" hidden aria-hidden="true">
+                        <source src="Musicas%20dedicada%20a%20leticia%20no%20site/contrato-Jorge%20e%20Mateus/Jorge%20%26%20Mateus%20-%20Contrato%20(Lyric%20V%C3%ADdeo%20Oficial).mp3" type="audio/mpeg">
+                    </audio>
+                    <section id="letra-contrato" class="contract-lyrics" aria-labelledby="titulo-clausulas" hidden>
+                        <h3 id="titulo-clausulas">Cláusulas do nosso contrato</h3>
+                        <ol>
+                            <li>Todo dia começa melhor com um bom-dia seu e termina mais feliz com o nosso boa-noite.</li>
+                            <li>A gente respeita o nosso tempo, continua se conhecendo com carinho e constrói essa história sem pressa.</li>
+                            <li>Nunca esqueceremos que tudo começou na formatura da mãe dele, ganhou um novo capítulo em 26 de agosto e virou cantada por causa do seu sorriso.</li>
+                            <li>Cada conversa por telefone vale como um encontro, mesmo quando a saudade aperta.</li>
+                            <li>O dia 10 de outubro fica reservado para celebrar nossa primeira saída e a sorte de estar ao lado de uma pessoa 10/10.</li>
+                            <li>Ele será sempre seu fã número 1: apoiando tudo o que a famosa da conta privada viver, gravar, editar e postar.</li>
+                            <li>Nos dias bons e nos dias difíceis, você pode contar com ele para cuidar de você, fazer você sorrir e estar ao seu lado.</li>
+                            <li>Este contrato se renova a cada conversa, cada beijo e cada novo momento da nossa história.</li>
+                        </ol>
+                    </section>
+                </div>
+                <button id="voltar-inicio" class="home-return-button" type="button" hidden>Voltar ao início</button>
+            </section>
+        </div>
+    </main>
+    <div id="letter-overlay" class="letter-overlay" hidden>
+        <section class="letter-dialog" role="dialog" aria-modal="true" aria-label="Carta surpresa">
+            <p class="letter-dialog-kicker">Uma surpresa para voc&ecirc;</p>
+            <div id="flying-envelope" class="flying-envelope" aria-hidden="true">
+                <div class="envelope-back"></div><div class="envelope-paper"></div>
+                <div class="envelope-flap"></div><div class="envelope-front"></div>
+                <span class="envelope-seal" aria-label="Selo de Gabriel e Leticia"><span class="seal-monogram">G+L</span><small>GABRIEL + LETICIA</small></span>
+            </div>
+            <div class="letter-actions"><button id="open-letter" type="button">Abrir carta</button></div>
+            <article id="opened-letter" class="opened-letter" aria-labelledby="letter-dialog-title" hidden>
+                <span class="opened-letter-seal" role="img" aria-label="Selo de Gabriel e Leticia"><span>G+L</span><small>GABRIEL + LETICIA</small></span>
+                <p class="opened-letter-kicker">Com todo o meu carinho</p>
+                <h2 id="letter-dialog-title">Minha princesa,</h2>
+                <p>Quero que seja o começo de uma história<br>
+                    escrita com amor, respeito e cumplicidade,<br>
+                    abençoada por Deus,<br>
+                    fortalecida pela confiança<br>
+                    e construída pela vontade de nós dois.</p>
+                <p>E, se você disser sim,<br>
+                    não vou te prometer que serei perfeito.<br>
+                    Vou te prometer que serei sincero,<br>
+                    que vou aprender com meus erros,<br>
+                    que vou cuidar do nosso amor<br>
+                    e que, a cada novo amanhecer,<br>
+                    vou ter a alegria de poder dizer:</p>
+                <p><em>Entre tantas pessoas neste mundo,<br>
+                    foi você quem meu coração escolheu.<br>
+                    E, se Deus permitir que caminhemos juntos,<br>
+                    quero fazer do nosso amor<br>
+                    o mais lindo capítulo<br>
+                    de tudo aquilo que ainda vamos viver.</em></p>
+                <p> Eu e você, princesa.<br>
+                    Nossa história está apenas começando. ❤️</p>
+
+                <p class="opened-letter-question">
+                    <span class="question-spark" aria-hidden="true">❤️</span>
+                    <strong>Leticia Oliveira Pugliese , 
+                        <br>aceita namorar comigo?</strong>
+                    <span class="question-spark" aria-hidden="true">🌹</span>
+                </p>
+                <button id="resposta-sim-carta" type="button">Sim, aceito! &#10084;</button>
+            </article>
+        </section>
+    </div>
+    <script>
+        const mensagemResposta = document.querySelector("#mensagem-resposta");
+        const surpresaAceite = document.querySelector("#surpresa-aceite");
+        const revelacaoAssinatura = document.querySelector(".contract-ink-reveal");
+        const trilhoCaneta = document.querySelector("#trilho-caneta");
+        const caneta = document.querySelector(".contract-pen");
+        const duracaoAssinatura = 1850;
+
+        const animarAssinatura = () => new Promise((resolver) => {
+            const larguraAssinatura = 126;
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                revelacaoAssinatura.setAttribute("width", String(larguraAssinatura));
+                caneta.style.opacity = "0";
+                resolver();
+                return;
+            }
+
+            revelacaoAssinatura.setAttribute("width", "0");
+            caneta.style.opacity = "1";
+            const comprimentoTrilho = trilhoCaneta.getTotalLength();
+            const inicio = performance.now();
+
+            const desenhar = (agora) => {
+                const progresso = Math.min((agora - inicio) / duracaoAssinatura, 1);
+                const progressoSuave = progresso * progresso * (3 - 2 * progresso);
+                const largura = larguraAssinatura * progressoSuave;
+                const distanciaTrilho = comprimentoTrilho * progressoSuave;
+                const ponto = trilhoCaneta.getPointAtLength(distanciaTrilho);
+                const pontoSeguinte = trilhoCaneta.getPointAtLength(Math.min(comprimentoTrilho, distanciaTrilho + 1));
+                const inclinacao = Math.atan2(
+                    pontoSeguinte.y - ponto.y,
+                    pontoSeguinte.x - ponto.x
+                ) * 180 / Math.PI - 90;
+
+                revelacaoAssinatura.setAttribute("width", String(largura));
+                caneta.setAttribute(
+                    "transform",
+                    `translate(${ponto.x.toFixed(2)} ${ponto.y.toFixed(2)}) rotate(${inclinacao.toFixed(2)})`
+                );
+                caneta.style.opacity = progresso > 0.94
+                    ? String(Math.max(0, (1 - progresso) / 0.06))
+                    : "1";
+
+                if (progresso < 1) {
+                    window.requestAnimationFrame(desenhar);
+                    return;
+                }
+
+                revelacaoAssinatura.setAttribute("width", String(larguraAssinatura));
+                caneta.style.opacity = "0";
+                resolver();
+            };
+
+            window.requestAnimationFrame(desenhar);
+        });
+
+        const musicaContrato = document.querySelector("#musica-contrato");
+        const letraContrato = document.querySelector("#letra-contrato");
+        let contratoIniciado = false;
+
+        const tocarContrato = () => {
+            if (contratoIniciado) return;
+            contratoIniciado = true;
+            letraContrato.hidden = false;
+            musicaContrato.load();
+
+            const iniciarReproducao = () => {
+                if (musicaContrato.duration <= 57) return;
+                musicaContrato.currentTime = 57;
+                musicaContrato.play().catch(() => {});
+            };
+
+            if (musicaContrato.readyState >= HTMLMediaElement.HAVE_METADATA) {
+                iniciarReproducao();
+            } else {
+                musicaContrato.addEventListener("loadedmetadata", iniciarReproducao, { once: true });
+            }
+        };
+
+        const cartaOverlay = document.querySelector("#letter-overlay");
+        const envelope = document.querySelector("#flying-envelope");
+        const botaoAbrirCarta = document.querySelector("#open-letter");
+        const cartaAberta = document.querySelector("#opened-letter");
+        const botaoRespostaCarta = document.querySelector("#resposta-sim-carta");
+        const botaoVoltarInicio = document.querySelector("#voltar-inicio");
+
+        const mostrarCarta = () => {
+            mensagemResposta.textContent = "Preparei uma carta especial para voc\u00ea.";
+            cartaOverlay.hidden = false;
+            document.body.classList.add("letter-modal-open");
+            botaoAbrirCarta.focus({ preventScroll: true });
+        };
+
+        botaoAbrirCarta.addEventListener("click", () => {
+            envelope.classList.add("is-opening");
+            document.querySelector(".letter-actions").hidden = true;
+            const espera = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 780;
+            window.setTimeout(() => {
+                envelope.hidden = true;
+                cartaAberta.hidden = false;
+                botaoRespostaCarta.focus({ preventScroll: true });
+            }, espera);
+        }, { once: true });
+
+        const concluirCarta = () => {
+            mensagemResposta.textContent = "Voc\u00ea acabou de deixar meu cora\u00e7\u00e3o ainda mais feliz. Eu te amo! \u2764";
+            cartaOverlay.hidden = true;
+            document.body.classList.remove("letter-modal-open");
+            surpresaAceite.hidden = false;
+            window.dispatchEvent(new Event("proposal:accepted"));
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (!prefersReducedMotion) {
+                const confetti = document.createElement("div");
+                confetti.className = "celebration-confetti";
+                confetti.setAttribute("aria-hidden", "true");
+                const colors = ["#c5a87c", "#d983a0", "#f0d7a8", "#ad617d"];
+                for (let index = 0; index < 34; index += 1) {
+                    const piece = document.createElement("span");
+                    piece.className = "celebration-confetti-piece";
+                    piece.style.backgroundColor = colors[index % colors.length];
+                    piece.style.setProperty("--confetti-x", `${Math.round((Math.random() - 0.5) * 70)}vw`);
+                    piece.style.setProperty("--confetti-y", `${Math.round(25 + Math.random() * 65)}vh`);
+                    piece.style.setProperty("--confetti-rotation", `${Math.round(Math.random() * 900 - 450)}deg`);
+                    piece.style.setProperty("--confetti-duration", `${(2.2 + Math.random() * 0.8).toFixed(2)}s`);
+                    confetti.append(piece);
+                }
+                document.body.append(confetti);
+                window.setTimeout(() => confetti.remove(), 3200);
+            }
+            surpresaAceite.scrollIntoView({ behavior: "smooth", block: "center" });
+            animarAssinatura().then(() => {
+                tocarContrato();
+                botaoVoltarInicio.hidden = false;
+            });
+        };
+
+        botaoRespostaCarta.addEventListener("click", concluirCarta, { once: true });
+        document.querySelector("#resposta-sim").addEventListener("click", mostrarCarta, { once: true });
+        botaoVoltarInicio.addEventListener("click", () => {
+            const transition = document.createElement("div");
+            transition.className = "home-transition";
+            transition.setAttribute("aria-hidden", "true");
+            document.body.append(transition);
+            document.body.classList.add("home-transitioning");
+            const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 50 : 900;
+            window.setTimeout(() => {
+                window.location.assign(new URL("index.html", window.location.href).href);
+            }, delay);
+        });
+
+    </script>
+    <script src="brand-doodles.js" defer></script>
+</body>
+</html>

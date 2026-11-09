@@ -1,0 +1,728 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.titulo {
+        position: relative;
+        width: min(500px, calc(100% - 32px));
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 20px 60px 20px 90px;
+        border: 2px solid #8a7650;
+        border-radius: 12px;
+        background-color: #d5c7a3;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .symb {
+        position: absolute;
+        top: 10px;
+        left: 100px;
+        width: 60px;
+        height: auto;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    .menu-container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .menu-button {
+        width: 36px;
+        height: 36px;
+        border: 0;
+        border-radius: 50%;
+        background-color: #8a7650;
+        color: #fff;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .menu-button:hover,
+    .menu-button:focus-visible {
+        background-color: #6d5c3f;
+    }
+
+    .menu {
+        position: absolute;
+        top: 42px;
+        right: 0;
+        z-index: 1;
+        min-width: 160px;
+        overflow: hidden;
+        border: 1px solid #8a7650;
+        border-radius: 8px;
+        background-color: #f5f0e6;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .menu[hidden] {
+        display: none;
+    }
+
+    .menu a {
+        display: block;
+        padding: 10px 14px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .menu a:hover,
+    .menu a:focus-visible {
+        background-color: #d5c7a3;
+    }
+
+    .historia {
+        width: min(800px, calc(100% - 32px));
+        margin: 28px auto;
+        padding: 24px;
+        border: 2px solid #8a7650;
+        border-radius: 12px;
+        background-color: #d5c7a3;
+        color: #333;
+        line-height: 1.7;
+        box-sizing: border-box;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .historia h2 {
+        margin: 0 0 12px;
+        text-align: center;
+    }
+
+    .historia p {
+        margin: 0;
+    }
+
+    .historia a {
+        color: #5b3c17;
+        font-weight: bold;
+    }
+
+    .historia a:hover,
+    .historia a:focus-visible {
+        color: #2d241c;
+    }
+
+    .personagens {
+        width: min(800px, calc(100% - 32px));
+        margin: 28px auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 18px;
+        color: #333;
+    }
+
+    .personagens section {
+        min-width: 0;
+        padding: 14px;
+        border: 2px solid #8a7650;
+        border-radius: 12px;
+        background-color: #d5c7a3;
+        text-align: center;
+        box-sizing: border-box;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .foto-personagem {
+        width: 100%;
+        aspect-ratio: 1;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #8a7650;
+        border-radius: 8px;
+        background-color: #f5f0e6;
+        color: #6d5c3f;
+        box-sizing: border-box;
+    }
+
+    .personagens h2 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .episodios {
+        width: min(1000px, calc(100% - 32px));
+        margin: 28px auto;
+    }
+
+    .temporada-episodios {
+        margin-bottom: 28px;
+    }
+
+    .temporada-episodios h2 {
+        margin: 0 0 12px;
+        padding: 12px 16px;
+        border: 2px solid #8a7650;
+        border-radius: 12px;
+        background-color: #d5c7a3;
+        color: #333;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .lista-episodios {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 14px;
+    }
+
+    .episodio {
+        min-height: 90px;
+        padding: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #8a7650;
+        border-radius: 12px;
+        background-color: #d5c7a3;
+        color: #333;
+        text-align: center;
+        box-sizing: border-box;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #2d241c;
+        color: #f5f0e6;
+        font-family: Georgia, "Times New Roman", serif;
+        animation: supernatural-enter 350ms ease-out both;
+    }
+
+    .titulo {
+        width: min(1000px, calc(100% - 32px));
+        max-width: none;
+        min-height: 82px;
+        padding: 18px 64px;
+        background: linear-gradient(145deg, #e4d8b8, #c8b88e);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32), inset 0 1px rgba(255, 255, 255, 0.4);
+    }
+
+    .titulo h1 {
+        color: #33271b;
+        text-align: center;
+    }
+
+    .menu {
+        max-height: min(70vh, 540px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .menu a[aria-current="page"] {
+        background-color: #d5c7a3;
+        font-weight: 700;
+    }
+
+    .menu:not([hidden]) {
+        transform-origin: top right;
+        animation: menu-enter 180ms ease-out both;
+    }
+
+    .menu-button {
+        transition: background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .menu-button:hover,
+    .menu-button:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .historia,
+    .personagens section,
+    .temporada-episodios h2,
+    .episodio {
+        transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+
+    .personagens section:hover,
+    .episodio:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 9px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .guia {
+        width: min(1000px, calc(100% - 32px));
+        margin: 28px auto 56px;
+        padding: clamp(20px, 4vw, 36px);
+        border: 2px solid #8a7650;
+        border-radius: 14px;
+        background: #d5c7a3;
+        color: #333;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    .guia > h2 {
+        margin: 0 0 8px;
+        color: #33271b;
+        text-align: center;
+    }
+
+    .guia-intro {
+        margin: 0 auto 24px;
+        color: #51432f;
+        line-height: 1.65;
+        text-align: center;
+    }
+
+    .grade-personagens {
+        width: min(1000px, calc(100% - 32px));
+        margin: 28px auto 56px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+        gap: 18px;
+    }
+
+    .cartao-personagem {
+        min-width: 0;
+        padding: 14px;
+        border: 2px solid #8a7650;
+        border-radius: 12px;
+        background: #d5c7a3;
+        color: #333;
+        cursor: pointer;
+        font: inherit;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+
+    .cartao-personagem:hover,
+    .cartao-personagem:focus-visible {
+        transform: translateY(-4px);
+        border-color: #5b3c17;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .avatar-personagem,
+    .avatar-dialogo {
+        width: 100%;
+        aspect-ratio: 1;
+        margin-bottom: 12px;
+        display: grid;
+        place-items: center;
+        border: 2px solid #8a7650;
+        border-radius: 9px;
+        background: linear-gradient(145deg, #f5f0e6, #c8b88e);
+        color: #5b3c17;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2rem, 5vw, 3.4rem);
+        font-weight: 700;
+    }
+
+    .nome-personagem {
+        display: block;
+        font-weight: 700;
+    }
+
+    .detalhe-personagem {
+        width: min(500px, calc(100% - 28px));
+        max-height: min(85vh, 720px);
+        padding: 24px;
+        border: 2px solid #8a7650;
+        border-radius: 14px;
+        background: #d5c7a3;
+        color: #333;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+    }
+
+    .detalhe-personagem::backdrop {
+        background: rgba(20, 15, 10, 0.75);
+        backdrop-filter: blur(3px);
+    }
+
+    .detalhe-personagem form {
+        position: absolute;
+        top: 9px;
+        right: 10px;
+    }
+
+    .fechar-dialogo {
+        width: 34px;
+        height: 34px;
+        border: 1px solid #8a7650;
+        border-radius: 50%;
+        background: #f5f0e6;
+        color: #333;
+        cursor: pointer;
+        font-size: 1.4rem;
+        line-height: 1;
+    }
+
+    .detalhe-personagem h2 {
+        margin: 0 0 10px;
+        color: #5b3c17;
+    }
+
+    .detalhe-personagem p {
+        margin: 0;
+        line-height: 1.7;
+    }
+
+    .detalhe-personagem .avatar-dialogo {
+        width: min(220px, 70%);
+        margin: 0 auto 18px;
+    }
+
+    .lista-temporadas-serie {
+        display: grid;
+        gap: 14px;
+    }
+
+    .temporada-serie {
+        overflow: hidden;
+        border: 2px solid #8a7650;
+        border-radius: 12px;
+        background: #f5f0e6;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+        transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+
+    .temporada-serie:hover,
+    .temporada-serie:focus-within {
+        transform: translateY(-2px);
+        border-color: #6d5c3f;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    .temporada-serie > summary {
+        padding: 15px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        background: #d5c7a3;
+        color: #33271b;
+        cursor: pointer;
+        font-weight: 700;
+        list-style: none;
+        transition: background-color 180ms ease, color 180ms ease;
+    }
+
+    .temporada-serie > summary:hover,
+    .temporada-serie > summary:focus-visible {
+        background: #c8b88e;
+        color: #241b12;
+    }
+
+    .temporada-serie > summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .temporada-serie > summary::after {
+        content: "+";
+        color: #5b3c17;
+        font-size: 1.3rem;
+    }
+
+    .temporada-serie[open] > summary::after {
+        content: "−";
+    }
+
+    .temporada-serie > p {
+        margin: 0;
+        padding: 16px 18px 0;
+        line-height: 1.6;
+    }
+
+    .lista-episodios-guia {
+        display: grid;
+        gap: 0;
+        padding: 10px 18px 18px;
+    }
+
+    .episodio-guia {
+        display: grid;
+        grid-template-columns: 110px minmax(0, 1fr);
+        align-items: center;
+        gap: 14px;
+        padding: 12px 0;
+        transition: background-color 180ms ease, transform 180ms ease;
+    }
+
+    .episodio-guia:hover {
+        transform: translateX(4px);
+        background: rgba(200, 184, 142, 0.18);
+    }
+
+    .episodio-guia + .episodio-guia {
+        border-top: 1px solid #c8b88e;
+    }
+
+    .capa-episodio-guia {
+        min-height: 62px;
+        padding: 8px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #8a7650;
+        border-radius: 7px;
+        background: #e7dcc1;
+        color: #5b3c17;
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-align: center;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
+    }
+
+    .episodio-guia h3 {
+        margin: 0 0 5px;
+        color: #5b3c17;
+        font-size: 1rem;
+    }
+
+    .episodio-guia p {
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .total-episodios {
+        margin: 20px 0 0;
+        color: #51432f;
+        text-align: center;
+    }
+
+    .cartoes-guia {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        gap: 16px;
+    }
+
+    .cartoes-guia article,
+    .glossario > div {
+        padding: 18px;
+        border: 1px solid #8a7650;
+        border-radius: 12px;
+        background: linear-gradient(145deg, #f5f0e6, #e7dcc1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+        transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+        animation: card-enter 420ms ease-out both;
+    }
+
+    .cartoes-guia article:hover,
+    .glossario > div:hover {
+        transform: translateY(-4px);
+        border-color: #6d5c3f;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cartoes-guia h3 {
+        margin: 0 0 9px;
+        color: #5b3c17;
+    }
+
+    .cartoes-guia p {
+        margin: 0;
+        line-height: 1.65;
+    }
+
+    .faixa a {
+        display: inline-block;
+        margin-top: 12px;
+        color: #5b3c17;
+        font-weight: 700;
+    }
+
+    .linha-do-tempo {
+        position: relative;
+        display: grid;
+        gap: 16px;
+        margin: 28px 0 0;
+        padding: 0 0 0 28px;
+        list-style: none;
+    }
+
+    .linha-do-tempo::before {
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        left: 8px;
+        width: 3px;
+        background: #8a7650;
+        content: "";
+    }
+
+    .linha-do-tempo li {
+        position: relative;
+        padding: 18px;
+        border: 1px solid #8a7650;
+        border-radius: 12px;
+        background: #f5f0e6;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .linha-do-tempo li:hover {
+        transform: translateX(4px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    .linha-do-tempo li::before {
+        position: absolute;
+        top: 21px;
+        left: -27px;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #f5f0e6;
+        border-radius: 50%;
+        background: #6d5c3f;
+        content: "";
+    }
+
+    .linha-do-tempo span {
+        color: #6d5c3f;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .linha-do-tempo h3 {
+        margin: 7px 0;
+        color: #5b3c17;
+    }
+
+    .linha-do-tempo p {
+        margin: 0;
+        line-height: 1.65;
+    }
+
+    .glossario {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        gap: 14px;
+        margin: 0;
+    }
+
+    .glossario dt {
+        margin-bottom: 7px;
+        color: #5b3c17;
+        font-weight: 700;
+    }
+
+    .glossario dd {
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .sobre-serie p + p {
+        margin-top: 16px;
+    }
+
+    @keyframes menu-enter {
+        from {
+            opacity: 0;
+            transform: translateY(-6px) scale(0.98);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes card-enter {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @view-transition {
+        navigation: auto;
+    }
+
+    ::view-transition-old(root) {
+        animation: supernatural-exit 160ms ease-in both;
+    }
+
+    ::view-transition-new(root) {
+        animation: supernatural-enter 300ms ease-out both;
+    }
+
+    @keyframes supernatural-enter {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes supernatural-exit {
+        to {
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .titulo {
+            min-height: 70px;
+            padding: 16px 54px 16px 18px;
+        }
+
+        .titulo h1 {
+            font-size: clamp(1.35rem, 7vw, 2rem);
+        }
+
+        .menu-container {
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+        }
+
+        .guia {
+            width: calc(100% - 24px);
+            margin-top: 18px;
+            padding: 18px;
+        }
+
+        .cartoes-guia {
+            grid-template-columns: 1fr;
+        }
+
+        .temporada-serie > summary {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .episodio-guia {
+            grid-template-columns: 78px minmax(0, 1fr);
+            gap: 10px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            scroll-behavior: auto !important;
+            animation-duration: 1ms !important;
+            transition-duration: 1ms !important;
+        }
+    }
